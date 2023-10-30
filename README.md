@@ -9,7 +9,7 @@ In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mod
     - NMAP Ping Scan, various TCP scans including SYN, Connect, NULL, FIN, and XMAS, as well as UDP Scans.
 - Attack detection using Snort (NIDS):
     - SQL injection attacks using tools like WPSCan & Wordpress and Burp Suite & SQLmap.
-    - Backdoor attacks using Empire C2 post-exploitation framework and Katana penetration test framework.
+    - Backdoor attacks using Empire post-exploitation framework and Katana penetration test framework.
     - Rogue DHCP & Rogue Routing attacks.
     - ICMP Redirect attack.
 
