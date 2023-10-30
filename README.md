@@ -6,9 +6,9 @@ In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mod
 ## Summary
 - Network IDS/IPS setup using Snort in Ubuntu.
 - NMAP scan detection using Snort (NIDS):
-    - NMAP Ping Scan, TCP Scan, XMAS Scan, FIN Scan, NULL Scan, and UDP Scan.
+    - NMAP Ping Scan, various TCP scans including SYN, Connect, NULL, FIN, and XMAS, as well as UDP Scans.
 - Attack detection using Snort (NIDS):
-    - SQL injection attacks using WPSCan & Wordpress and Burp Suite & SQLmap.
+    - SQL injection attacks using tools like WPSCan & Wordpress and Burp Suite & SQLmap.
     - Backdoor attacks using Empire and Katana.
     - Rogue DHCP & Rogue Routing attacks.
     - ICMP Redirect attack.
