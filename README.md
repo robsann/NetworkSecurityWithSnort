@@ -1,7 +1,7 @@
 <div align="justify">
 
 # Network Security with Snort (IDS/IPS)
-In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mode to detect Nmap host discovery and port scanning performed by various techniques. Additionally, it detects attacks such as SQL injection performed through tools like WPScan and SQLmap, as well as backdoor attempts using Empire and Katana. Snort also identifyed rogue DHCP and rogue routing attacks, along with ICMP Redirect attacks.
+In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mode to detect Nmap host discovery and port scanning performed by various techniques. Additionally, it detects attacks such as SQL injection performed through tools like WPScan and SQLmap, as well as backdoor attempts using Empire C2 post-exploitation framework and Katana penetration test framework. Snort also identified rogue DHCP and rogue routing attacks, along with ICMP Redirect attacks.
 
 ## Summary
 - Network IDS/IPS setup using Snort in Ubuntu.
@@ -9,38 +9,12 @@ In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mod
     - NMAP Ping Scan, various TCP scans including SYN, Connect, NULL, FIN, and XMAS, as well as UDP Scans.
 - Attack detection using Snort (NIDS):
     - SQL injection attacks using tools like WPSCan & Wordpress and Burp Suite & SQLmap.
-    - Backdoor attacks using Empire and Katana.
+    - Backdoor attacks using Empire C2 post-exploitation framework and Katana penetration test framework.
     - Rogue DHCP & Rogue Routing attacks.
     - ICMP Redirect attack.
 
 ## Procedure
 The procedure to build this lab can be found here, and it was adapted from here.
-
-## Tools
-- **Kali Linux**
-    - **Nmap**
-    - **Wireshark**
-    - **SSH**
-    - **VirtualBox**
-        - **Ubuntu Server**
-            - **Tmux**
-            - **Snort**
-        - **CentOS 7**
-
-### Description
-- **Kali Linux:** Kali is a Debian-derived Linux distribution designed for digital forensics and penetration testing. It is maintained and funded by Offensive Security.
-- **Nmap:** Nmap ("Network Mapper") is a free and open-source network exploration tool and security/port scanner. Nmap is used to discover hosts and services on a computer network by sending packets and analyzing the responses. Nmap provides several features for probing computer networks, including host and service discovery and operating system detection.
-- **Wireshark:** Wireshark is a GUI network protocol analyzer that Interactively dumps and analyzes network traffic. It lets you interactively browse packet data from a live network or a previously saved capture file. Wireshark's native capture file formats are pcapng format and pcap format.
-- **SSH:** The Secure Shell Protocol is a cryptographic network protocol for operating network services securely over an unsecured network. Its most notable applications are remote login and command-line execution. SSH applications are based on a client-server architecture, connecting an SSH client instance with an SSH server.
-- **VirtualBox:** Oracle VM VirtualBox is a type-2 hypervisor for x86 virtualization developed by Oracle Corporation suitable for enterprise as well as home use.
-- **CentOS 7:** CentOS is a Linux distribution based on the source code of Red Hat Enterprise Linux (RHEL). It is a community-supported, open-source operating system that aims to provide a free and robust alternative to commercial Linux distributions and it is renowned for its stability and reliability. CentOS stands for Community ENTerprise Operating System.
-- **Ubuntu Server:** Ubuntu Server is a variant of the standard Ubuntu, tailored for networks and services and it brings economic and technical scalability to your data center, public or private.
-- **Tmux:** Tmux is a terminal multiplexer, it enables several terminals to be created, accessed, and controlled from a single screen. Tmux may be detached from a screen and continue running in the background, then later reattached.
-- **Snort** is an open-source network intrusion detection system, capable of performing real-time traffic analysis and packet logging on IP networks. It can perform protocol analysis, and content searching/matching and can be used to detect a variety of attacks and probes, such as buffer overflows, stealth port scans, CGI attacks, SMB probes, OS fingerprinting attempts, and much more. Snort has three primary uses:
-    - As a straight packet sniffer like tcpdump.
-    - As a packet logger (useful for network traffic debugging, etc).
-    - As a full-blown network intrusion detection system.
-
 
 ## Network Diagram
 <img src="images/intro/network_diagram.png"/>
@@ -74,6 +48,17 @@ Host-only network is a virtual network accessed only by the Guest Virtual Machin
 
 # 1 - Nmap Scan Detection with Snort
 In this test, the host discovery and port scans were conducted using Nmap on the Kali Linux host machine. The target was the CentOS 7 virtual machine. Simultaneously, the Ubuntu Server virtual machine detected the Nmap activities through Snort in NIDS mode, and the packets were captured using Wireshark on the Kali Linux system.
+
+## Tools Used
+- **Kali Linux**
+    - **Nmap**
+    - **Wireshark**
+    - **SSH**
+    - **VirtualBox**
+        - **Ubuntu Server**
+            - **Tmux**
+            - **Snort**
+        - **CentOS 7**
 
 The same Wireshark filter, filtering the CentOS IP address, was used for all the tests. The Wireshark filter and the command used to start Snort in NIDS and monitoring mode are in the table below:
 
@@ -300,5 +285,28 @@ The Snort detected two DNS packet, one DHCP, and two SNMP packets sent by Nmap a
 ## 4 - Rogue DHCP & Routing Attacks Detection with Snort
 
 ## 5 - ICMP Redirect Attack Detection with Snor
+
+## Glossary
+
+### Attacks Description
+- **SQL injection:** SQL injection is a common cyber attack where malicious code is inserted into SQL statements, allowing attackers to gain unauthorized access to a database. By manipulating input fields on a website, hackers can exploit vulnerabilities in poorly sanitized SQL queries. This can lead to unauthorized viewing, modification, or deletion of data, posing a significant security risk to websites and applications that use SQL databases. To prevent SQL injection, input validation and parameterized queries are essential security measures.
+- **Backdoor:** Backdoor attacks refer to unauthorized and hidden access points in a computer system or software application. Cybercriminals exploit these vulnerabilities to gain access, control, and manipulate the system without the user's knowledge. Backdoors can be intentionally created by developers for troubleshooting, but if misused or discovered by malicious actors, they pose significant security risks, allowing attackers to steal sensitive data, disrupt services, or install malware without detection. Protecting against backdoor attacks involves robust cybersecurity measures and regular system audits to identify and eliminate potential vulnerabilities.
+- **Rogue DHCP:** Rogue DHCP (Dynamic Host Configuration Protocol) attacks occur when a malicious actor sets up a rogue DHCP server on a network without authorization. This server then assigns IP addresses and network configuration settings to unsuspecting devices, diverting traffic through the attacker's system. This can lead to various security risks, including interception of sensitive data, man-in-the-middle attacks, and network disruptions. Rogue DHCP attacks exploit the trust that devices place in DHCP servers, allowing attackers to gain unauthorized access to network traffic and compromise the integrity of the network. Protecting against such attacks involves implementing network security measures, such as DHCP snooping and port security, to detect and prevent rogue DHCP servers from operating on the network.
+- **Rogue Routing:** Rogue Routing attacks, also known as route hijacking or BGP hijacking, occur when a malicious actor announces fake routing information on the internet. This misinformation deceives routers into diverting traffic through unauthorized paths. Attackers can intercept sensitive data, manipulate traffic, or disrupt services. These attacks exploit vulnerabilities in the Border Gateway Protocol (BGP), a protocol used for routing data between different networks. To mitigate Rogue Routing attacks, securing BGP configurations and implementing cryptographic solutions like Resource Public Key Infrastructure (RPKI) are essential.
+- **ICMP Redirect:** ICMP Redirect attacks involve a malicious attacker sending falsified ICMP Redirect messages to a target host on a network. These messages deceive the host into rerouting its network traffic through an unauthorized gateway specified by the attacker. By manipulating the routing tables, the attacker can intercept, modify, or eavesdrop on the victim's data packets, leading to potential data theft, man-in-the-middle attacks, or network disruptions. ICMP Redirect attacks exploit the trust relationship between network devices, making them vulnerable to redirection instructions that appear to come from a legitimate source but are, in fact, maliciously crafted. Implementing proper network security measures, such as filtering ICMP Redirect messages and using secure routing protocols, can mitigate the risks associated with these attacks.
+
+### Tools Description
+- **Kali Linux:** Kali is a Debian-derived Linux distribution designed for digital forensics and penetration testing. It is maintained and funded by Offensive Security.
+- **Nmap:** Nmap ("Network Mapper") is a free and open-source network exploration tool and security/port scanner. Nmap is used to discover hosts and services on a computer network by sending packets and analyzing the responses. Nmap provides several features for probing computer networks, including host and service discovery and operating system detection.
+- **Wireshark:** Wireshark is a GUI network protocol analyzer that Interactively dumps and analyzes network traffic. It lets you interactively browse packet data from a live network or a previously saved capture file. Wireshark's native capture file formats are pcapng format and pcap format.
+- **SSH:** The Secure Shell Protocol is a cryptographic network protocol for operating network services securely over an unsecured network. Its most notable applications are remote login and command-line execution. SSH applications are based on a client-server architecture, connecting an SSH client instance with an SSH server.
+- **VirtualBox:** Oracle VM VirtualBox is a type-2 hypervisor for x86 virtualization developed by Oracle Corporation suitable for enterprise as well as home use.
+- **CentOS 7:** CentOS is a Linux distribution based on the source code of Red Hat Enterprise Linux (RHEL). It is a community-supported, open-source operating system that aims to provide a free and robust alternative to commercial Linux distributions and it is renowned for its stability and reliability. CentOS stands for Community ENTerprise Operating System.
+- **Ubuntu Server:** Ubuntu Server is a variant of the standard Ubuntu, tailored for networks and services and it brings economic and technical scalability to your data center, public or private.
+- **Tmux:** Tmux is a terminal multiplexer, it enables several terminals to be created, accessed, and controlled from a single screen. Tmux may be detached from a screen and continue running in the background, then later reattached.
+- **Snort** is an open-source network intrusion detection system, capable of performing real-time traffic analysis and packet logging on IP networks. It can perform protocol analysis, and content searching/matching and can be used to detect a variety of attacks and probes, such as buffer overflows, stealth port scans, CGI attacks, SMB probes, OS fingerprinting attempts, and much more. Snort has three primary uses:
+    - As a straight packet sniffer like tcpdump.
+    - As a packet logger (useful for network traffic debugging, etc).
+    - As a full-blown network intrusion detection system.
 
 </div>
