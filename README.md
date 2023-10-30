@@ -29,7 +29,7 @@ The procedure to build this lab can be found here, and it was adapted from here.
 
 ### Description
 - **Kali Linux:** Kali is a Debian-derived Linux distribution designed for digital forensics and penetration testing. It is maintained and funded by Offensive Security.
-- **Nmap ("Network Mapper"):** Nmap is a free and open-source network exploration tool and security/port scanner. Nmap is used to discover hosts and services on a computer network by sending packets and analyzing the responses. Nmap provides several features for probing computer networks, including host and service discovery and operating system detection.
+- **Nmap:** Nmap ("Network Mapper") is a free and open-source network exploration tool and security/port scanner. Nmap is used to discover hosts and services on a computer network by sending packets and analyzing the responses. Nmap provides several features for probing computer networks, including host and service discovery and operating system detection.
 - **Wireshark:** Wireshark is a GUI network protocol analyzer that Interactively dumps and analyzes network traffic. It lets you interactively browse packet data from a live network or a previously saved capture file. Wireshark's native capture file formats are pcapng format and pcap format.
 - **SSH:** The Secure Shell Protocol is a cryptographic network protocol for operating network services securely over an unsecured network. Its most notable applications are remote login and command-line execution. SSH applications are based on a client-server architecture, connecting an SSH client instance with an SSH server.
 - **VirtualBox:** Oracle VM VirtualBox is a type-2 hypervisor for x86 virtualization developed by Oracle Corporation suitable for enterprise as well as home use.
