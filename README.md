@@ -273,7 +273,7 @@ alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; ityp
 
 The Snort detected two DNS packet, one DHCP, and two SNMP packets sent by Nmap and an ICMP destinanation unreachable packet response from the target for each packet sent by Nmap. Wireshark captured the same packets detected by Snort. The ICMP destination unreachable packets sent by the target had the type 3 and code 10 suggesting the ports where open|filtered, as indicated in the attacker terminal's Nmap output.
 
-## References
+### References
 - `man nmap`
 
 ---
