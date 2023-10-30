@@ -1,7 +1,7 @@
 <div align="justify">
 
 # Network Security with Snort (IDS/IPS)
-In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mode to detect Nmap host discovery and port scanning performed by various techniques. Additionally, it detects attacks such as SQL injection performed through tools like WPScan and SQLmap, as well as backdoor attempts using Empire and Katana. Snort also identifyed rogue DHCP and rogue routing attacks, along with ICMP Redirect attacks."
+In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mode to detect Nmap host discovery and port scanning performed by various techniques. Additionally, it detects attacks such as SQL injection performed through tools like WPScan and SQLmap, as well as backdoor attempts using Empire and Katana. Snort also identifyed rogue DHCP and rogue routing attacks, along with ICMP Redirect attacks.
 
 ## Summary
 - Network IDS/IPS setup using Snort in Ubuntu.
