@@ -83,10 +83,10 @@ sudo nmap -sn --disable-arp-ping 192.168.57.4
 #### Snort rules
 - **ICMP rules**
 ```
-alert icmp any any <> 192.168.57.4 any (msg:"ICMP Echo Request Packet";      itype:8;  sid:10000001; rev:1;)
-alert icmp any any <> 192.168.57.4 any (msg:"ICMP Echo Reply Packet";        itype:0;  sid:10000002; rev:1;)
-alert icmp any any <> 192.168.57.4 any (msg:"ICMP Timestamp Request Packet"; itype:13; sid:10000003; rev:1;)
-alert icmp any any <> 192.168.57.4 any (msg:"ICMP Timestamp Reply Packet)";  itype:14; sid:10000004; rev:1;)
+alert icmp any any <> 192.168.57.4 any (msg:"ICMP Echo Request Packet";      itype:8;  sid:1000001; rev:1;)
+alert icmp any any <> 192.168.57.4 any (msg:"ICMP Echo Reply Packet";        itype:0;  sid:1000002; rev:1;)
+alert icmp any any <> 192.168.57.4 any (msg:"ICMP Timestamp Request Packet"; itype:13; sid:1000003; rev:1;)
+alert icmp any any <> 192.168.57.4 any (msg:"ICMP Timestamp Reply Packet)";  itype:14; sid:1000004; rev:1;)
 ```
 
 - **TCP rules**
@@ -157,9 +157,9 @@ sudo nmap -sS -p22,23,24 --max-rate 1 -r 192.168.57.4
 
 #### Snort rules
 ```
-alert tcp any any <> 192.168.57.4 any  (msg:"TCP SYN Packet";     flags:S;   sid:11000001; rev:1)
-alert tcp any any <> 192.168.57.4 any  (msg:"TCP SYN/ACK Packet"; flags:SA;  sid:11000002; rev:1)
-alert tcp any any <> 192.168.57.4 any  (msg:"TCP RST Packet";     flags:R;   sid:11000004; rev:1;)
+alert tcp any any  <> 192.168.57.4 any (msg:"TCP SYN Packet";     flags:S;   sid:11000001; rev:1)
+alert tcp any any  <> 192.168.57.4 any (msg:"TCP SYN/ACK Packet"; flags:SA;  sid:11000002; rev:1)
+alert tcp any any  <> 192.168.57.4 any (msg:"TCP RST Packet";     flags:R;   sid:11000004; rev:1;)
 alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable Packet"; itype:3; sid:1000005; rev:1;)
 ```
 
@@ -187,10 +187,10 @@ sudo nmap -sT -p22,23,24 --max-rate 1 192.168.57.4
 
 #### Snort rules
 ```
-alert tcp any any <> 192.168.57.4 any  (msg:"TCP SYN";     flags:S;   sid:11000001; rev:1;)
-alert tcp any any <> 192.168.57.4 any  (msg:"TCP SYN/ACK"; flags:SA;  sid:11000002; rev:1)
-alert tcp any any <> 192.168.57.4 any  (msg:"TCP ACK";     flags:A;   sid:11000003; rev:1;)
-alert tcp any any <> 192.168.57.4 any  (msg:"TCP RST/ACK"; flags:RA;  sid:11000005; rev:1;)
+alert tcp any any  <> 192.168.57.4 any (msg:"TCP SYN";     flags:S;   sid:11000001; rev:1;)
+alert tcp any any  <> 192.168.57.4 any (msg:"TCP SYN/ACK"; flags:SA;  sid:11000002; rev:1)
+alert tcp any any  <> 192.168.57.4 any (msg:"TCP ACK";     flags:A;   sid:11000003; rev:1;)
+alert tcp any any  <> 192.168.57.4 any (msg:"TCP RST/ACK"; flags:RA;  sid:11000005; rev:1;)
 alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; itype:3; sid:1000005; rev:1;)
 ```
 
@@ -260,9 +260,9 @@ sudo nmap -sU -p53,67,161 --max-rate 1 -r 192.168.57.3
 
 #### Snort rules
 ```
-alert udp any any <> 192.168.57.4 53   (msg:"UDP DNS";  sid:1000001; rev:1;)
-alert udp any any <> 192.168.57.4 67   (msg:"UDP DHCP"; sid:1000002; rev:1;)
-alert udp any any <> 192.168.57.4 161  (msg:"UDP SNMP"; sid:1000003; rev:1;)
+alert udp any any  <> 192.168.57.4 53  (msg:"UDP DNS";  sid:12000002; rev:1;)
+alert udp any any  <> 192.168.57.4 67  (msg:"UDP DHCP"; sid:12000003; rev:1;)
+alert udp any any  <> 192.168.57.4 161 (msg:"UDP SNMP"; sid:12000004; rev:1;)
 alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; itype:3; sid:1000005; rev:1;)
 ```
 
