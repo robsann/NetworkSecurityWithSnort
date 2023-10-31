@@ -232,9 +232,9 @@ sudo nmap -sX -p22 192.168.57.4
 
 #### Snort rules
 ```
-alert tcp any any -> 192.168.57.4 any (msg:"TCP NULL";      flags:0;   sif:11000012; rev:1;)
-alert tcp any any -> 192.168.57.4 any (msg:"TCP FIN";       flags:F;   sif:11000007; rev:1;)
-alert tcp any any -> 192.168.57.4 any (msg:"TCP XMAS Tree"; flags:FPU; sif:11000006; rev:1;)
+alert tcp any any <> 192.168.57.4 any (msg:"TCP NULL";      flags:0;   sif:11000012; rev:1;)
+alert tcp any any <> 192.168.57.4 any (msg:"TCP FIN";       flags:F;   sif:11000007; rev:1;)
+alert tcp any any <> 192.168.57.4 any (msg:"TCP XMAS Tree"; flags:FPU; sif:11000006; rev:1;)
 ```
 
 <img src="images/1-nmap/2.3-nmap_tcp_null_fin_xmas.png" />
@@ -260,9 +260,9 @@ sudo nmap -sU -p53,67,161 --max-rate 1 -r 192.168.57.3
 
 #### Snort rules
 ```
-alert udp any any -> 192.168.57.3 53 (msg:"UDP DNS"; sid:1000001; rev:1;)
-alert udp any any -> 192.168.57.3 67 (msg:"UDP DHCP"; sid:1000002; rev:1;)
-alert udp any any -> 192.168.57.3 161 (msg:"UDP SNMP"; sid:1000003; rev:1;)
+alert udp any any <> 192.168.57.4 53   (msg:"UDP DNS";  sid:1000001; rev:1;)
+alert udp any any <> 192.168.57.4 67   (msg:"UDP DHCP"; sid:1000002; rev:1;)
+alert udp any any <> 192.168.57.4 161  (msg:"UDP SNMP"; sid:1000003; rev:1;)
 alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; itype:3; sid:1000005; rev:1;)
 ```
 
