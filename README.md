@@ -14,7 +14,7 @@ In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mod
     - ICMP Redirect attack.
 
 ## Procedure
-The procedure to build this lab can be found here, and it was adapted from here.
+The procedure to build this lab can be found [here](https://github.com/robsann/NetworkSecurityWithSnort/blob/main/procedure.md), and it was adapted from [B3l3r0f0nt377](https://www.youtube.com/watch?v=IIBS3aWj99E&list=PLMYaFGbdrr4sFeNeKaiBKFzfIqA1zuAg9&ab_channel=B3l3r0f0nt377).
 
 ## Network Diagram
 <div align="center">
