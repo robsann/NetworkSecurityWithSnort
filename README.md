@@ -1,7 +1,7 @@
 <div align="justify">
 
 # Network Security with Snort (IDS/IPS)
-In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mode to detect Nmap host discovery and port scanning performed by various techniques. Additionally, it detects attacks such as SQL injection performed through tools like WPScan and SQLmap, as well as backdoor attempts using Empire post-exploitation framework and Katana penetration test framework. Snort also identified rogue DHCP and rogue routing attacks, along with ICMP Redirect attacks.
+In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mode to detect Nmap host discovery and port scanning performed by various techniques. Additionally, it detects attacks such as SQL injection performed through tools like WPScan and SQLmap, as well as backdoor attempts using the Empire post-exploitation framework and Katana penetration test framework. Snort also identified rogue DHCP and rogue routing attacks, along with ICMP Redirect attacks.
 
 ## Summary
 - Snort network IDS mode configuration in Ubuntu Server.
@@ -14,7 +14,7 @@ In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mod
     - ICMP Redirect attack.
 
 ## Procedure
-The procedure to build this lab can be found [here](https://github.com/robsann/NetworkSecurityWithSnort/blob/main/procedure.md), and it was adapted from [B3l3r0f0nt377](https://www.youtube.com/watch?v=IIBS3aWj99E&list=PLMYaFGbdrr4sFeNeKaiBKFzfIqA1zuAg9&ab_channel=B3l3r0f0nt377).
+The procedure to build this lab can be found [here](https://github.com/robsann/NetworkSecurityWithSnort/blob/main/procedure.md). It was adapted from [B3l3r0f0nt377](https://www.youtube.com/watch?v=IIBS3aWj99E&list=PLMYaFGbdrr4sFeNeKaiBKFzfIqA1zuAg9&ab_channel=B3l3r0f0nt377).
 
 ## Network Diagram
 <div align="center">
@@ -72,10 +72,10 @@ The same Wireshark filter, filtering the CentOS IP address, was used for all the
 ## 1.1 - Host Discovery
 Host discovery was performed from Kali Linux using the ping scan feature on Nmap targeting the CentOS 7 virtual machine.
 
-### 1.1.1 - Nmap Ping Scan (with priviledges)
+### 1.1.1 - Nmap Ping Scan (with privileges)
 The host discovery process, performed with the `-sn` flag, includes an ICMP echo (ping) request, TCP SYN to port 443, TCP ACK to port 80, and an ICMP timestamp request as probe packs. Privileged users scanning targets on a local network can turn off ARP or IPv6 Neighbor Discovery (ND) discovery using the `--disable-arp-ping` flag.
 
-The image below displays the Attack machine executing Nmap (top left) with privileges, and with the `-sn` and `--disable-arp-ping` flags and addressing the Target machine. It also shows the packets captured by Snort in the NIDS mode (bottom left) and by Wireshark (right).
+The image below displays the Attack machine executing Nmap (top left) with privileges and with the `-sn` and `--disable-arp-ping` flags and addressing the Target machine. It also shows the packets captured by Snort in the NIDS mode (bottom left) and by Wireshark (right).
 
 #### Nmap command
 ```
@@ -100,19 +100,19 @@ alert tcp any any <> 192.168.57.4 any  (msg:"TCP RST";     flags:R;   sid:110000
 ```
 <img src="images/1-nmap/1.1-nmap_ping_scan.png" />
 <div align="center">
-&emsp;<small>The image shows the Nmap scan with privileges (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left) and the diagram of the selected packets.</small>
+&emsp;<small>The image shows the Nmap scan with privileges (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left), and the diagram of the selected packets.</small>
 </div><br>
 
-Snort successfully intercepted the probe packets sent by Nmap: ICMP echo request, ICMP timestamp request, TCP SYN port 443, and TCP ACK port 80, as previously outlined. Additionally, Snort captured the corresponding responses: ICMP echo reply and ICMP timestamp reply for the ICMP packets, a TCP SYN/ACK from the target and a TCP RST from the host for the TCP SYN port 443 package indicating the port is open, and a TCP RST from the target for the TCP ACK port 80 packet pointing to a unfiltered port.. Wireshark also captured the same 4 ICMP packets and 5 TCP packets detected by Snort.
+Snort successfully intercepted the probe packets sent by Nmap: ICMP echo request, ICMP timestamp request, TCP SYN port 443, and TCP ACK port 80, as previously outlined. Additionally, Snort captured the corresponding responses: ICMP echo reply and ICMP timestamp reply for the ICMP packets, a TCP SYN/ACK from the target and a TCP RST from the host for the TCP SYN port 443 packet indicating the port is open, and a TCP RST from the target for the TCP ACK port 80 packet pointing to an unfiltered port. Wireshark also captured the same 4 ICMP packets and 5 TCP packets detected by Snort.
 
 **Nmap Scan Methods**
 - **TCP SYN Scan (half-open scanning):** In this scanning method (conducted on port 443), Nmap sends a TCP SYN packet to initiate a connection. The target responds with a TCP SYN/ACK packet to establish the three-way handshake. However, instead of sending a TCP ACK to complete the handshake, the attacker sends a TCP RST packet, terminating the connection abruptly.
-- **TCP ACK Scan (firewall rulesets scanning):** This scan (performed on porto 80) never determines open (or even open|filtered) ports. It is used to map out firewall rulesets, determining whether they are stateful or not and which ports are filtered. The ACK scan probe packet has only the ACK flag set (unless you use `--scanflags`).
+- **TCP ACK Scan (firewall rulesets scanning):** This scan (performed on port 80) never determines open (or even open|filtered) ports. It is used to map out firewall rulesets, determining whether they are stateful or not and which ports are filtered. The ACK scan probe packet has only the ACK flag set (unless you use `--scanflags`).
     - **Unfiltered Ports:** When scanning unfiltered ports, open and closed ports will both return a RST packet. Nmap then labels them as unfiltered, meaning that they are reachable by the ACK packet, but whether they are open or closed is undetermined.
     - **Filtered Ports:** Ports that don't respond, or send certain ICMP error messages back (type 3, code 0, 1, 2, 3, 9, 10, or 13), are labeled filtered.
 
 
-### 1.1.2 - Nmap Ping Scan (no priviledges)
+### 1.1.2 - Nmap Ping Scan (no privileges)
 
 When conducting host discovery without privileges, Nmap sends only two TCP SYN packets: one to port 80 and another to port 443 on the target system.
 
@@ -132,7 +132,7 @@ alert tcp any any <> 192.168.57.4 any  (msg:"TCP RST/ACK"; flags:RA;  sid:110000
 
 <img src="images/1-nmap/1.2-nmap_ping_scan_no_priv.png"/>
 <div align="center">
-&emsp;<small>The image shows the Nmap scan with no privileges (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left) and the diagram of the selected packets.</small>
+&emsp;<small>The image shows the Nmap scan with no privileges (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left), and the diagram of the selected packets.</small>
 </div><br>
 
 Without privileges, Snort successfully detected and Wireshark captured two TCP three-way handshakes followed by a reset, one for port 80 and the other for port 443, indicating the ports are open. Each handshake, along with its corresponding reset, consists of a TCP SYN, a TCP SYN/ACK, and a TCP ACK to establish the connection, followed by a TCP RST/ACK to terminate it.
@@ -167,7 +167,7 @@ alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; ityp
 
 <img src="images/1-nmap/2.1-nmap_tcp_syn_scan.png" />
 <div align="center">
-&emsp;<small>The image shows the Nmap TCP SYN scan (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left) and the diagram of the selected packets.</small>
+&emsp;<small>The image shows the Nmap TCP SYN scan (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left), and the diagram of the selected packets.</small>
 </div><br>
 
 - To port 22, which is open and not filtered by the firewall, Nmap sent a SYN package (No. 4), and the Target machine replied with a SYN-ACK package (No. 5) to establish the three-way handshake connection. However, Nmap replied with an RST package (N. 6), ending the handshake without completing it.
@@ -176,9 +176,9 @@ alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; ityp
 
 
 ### 1.2.2 - TCP Connect Scan
-The Nmap TCP connect scan (`-sT` option) is the default when the SYN scan isn't available due to lacking privileges for raw packets. Instead of writing raw packets, Nmap relies on the operating system to create connections using the connect system call. Rather than read raw packet responses off the wire, Nmap uses the Berkeley Sockets API to gather status information on each connection attempt.
+The Nmap TCP connect scan (`-sT` option) is the default when the SYN scan isn't available due to a lack of privileges for raw packets. Instead of writing raw packets, Nmap relies on the operating system to create connections using the connect system call. Rather than read raw packet responses off the wire, Nmap uses the Berkeley Sockets API to gather status information on each connection attempt.
 
-When SYN scan is available, it is usually a better choice. Nmap has less control over the high-level connect call than with raw packets, making it less efficient. The system call completes connections to open target ports rather than performing the half-open reset that the SYN scan does. Not only does this take longer and require more packets to obtain the same information, but Target machines are more likely to log the connection.
+When Nmap SYN scan is available, it is usually a better choice. Nmap has less control over the high-level connect call than with raw packets, making it less efficient. The system call completes connections to open target ports rather than performing the half-open reset that the SYN scan does. Not only does this take longer and require more packets to obtain the same information, but Target machines are more likely to log the connection.
 
 Below are the Nmap command and the Snort rules used on the test. The image below shows the Attack machine terminal (top left), the terminal with Snort in NIDS mode (bottom left), the Wireshark showing the packets received/sent by the Target machine on ports 22, 23, and 24 (middle left) and the diagram of the chosen packets.
 
@@ -198,15 +198,15 @@ alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; ityp
 
 <img src="images/1-nmap/2.2-nmap_tcp_connect_scan.png" />
 <div align="center">
-&emsp;<small>The image shows the Nmap TCP Connect scan (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left) and the diagram of the selected packets.</small>
+&emsp;<small>The image shows the Nmap TCP Connect scan (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left), and the diagram of the selected packets.</small>
 </div><br>
 
-- Nmap successfully established a connection to port 22, which was open and not filtered by the firewall. It sent a SYN packet, receiving a SYN-ACK packet in response, and then completed the three-way handshake by replying with an ACK packet. Following this, Nmap sent an RST-ACK packet to terminate the connection.
+- Nmap successfully established a connection to port 22, which was open and not filtered by the firewall. It sent a SYN packet, received a SYN-ACK packet in response, and then completed the three-way handshake by replying with an ACK packet. Following this, Nmap sent an RST-ACK packet to terminate the connection.
 - Nmap sent a SYN packet to port 23, which was closed but not filtered by the firewall. In response, an ICMP destination unreachable message was received.
 - Nmap sent a SYN packet to port 24 which was closed and filtered by the firewall. In response, an ICMP destination unreachable message was received.
 
 ### 1.2.3 - Null Scan, FIN Scan, and Xmas Scan
-These three scan types exploit a subtle loophole in the TCP RFC to differentiate between open and closed ports. According to Page 65 of RFC 793, when the destination port's state is CLOSED, receiving an incoming segment lacking a Reset (RST) signal prompts the transmission of an RST in response. Next, it is discussed packets sent to open and closed ports without the SYN, RST, or ACK bits set.
+These three scan types exploit a subtle loophole in the TCP RFC to differentiate between open and closed ports. According to Page 65 of RFC 793, when the destination port's state is CLOSED, receiving an incoming segment lacking a Reset (RST) signal prompts the transmission of an RST in response. Next, it discusses packets that are sent to open and closed ports without the SYN, RST, or ACK bits set.
 
 When scanning systems compliant with this RFC text, any packet not containing SYN, RST, or ACK bits will result in a returned RST if the port is closed and no response at all if the port is open. As long as none of those three bits are included, any combination of the other three (FIN, PSH, and URG) is OK. Nmap exploits this with three scan types:
 - Null scan (`-sN`) Does not set any bits (TCP flag header is 0)
@@ -241,7 +241,7 @@ alert tcp any any <> 192.168.57.4 any (msg:"TCP XMAS Tree"; flags:FPU; sif:11000
 
 <img src="images/1-nmap/2.3-nmap_tcp_null_fin_xmas.png" />
 <div align="center">
-&emsp;&emsp;<small>The image shows the Nmap TCP Null, FIN, Xmas scans (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left) and the diagram of the selected packets.</small>
+&emsp;&emsp;<small>The image shows the Nmap TCP Null, FIN, Xmas scans (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left), and the diagram of the selected packets.</small>
 </div><br>
 
 No responses were received for the packets sent during all three scan types, which included TCP NULL, TCP FIN, and TCP XMAS Tree probes sent by their respective methods. This suggests that port 22 is either open or filtered by the firewall.
@@ -270,10 +270,10 @@ alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; ityp
 
 <img src="images/1-nmap/2.6-nmap_udp_scan.png" />
 <div align="center">
-&emsp;&emsp;<small>The image shows the Nmap UDP scan on ports 53, 67, 161 (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left) and the diagram of the selected packets.</small>
+&emsp;&emsp;<small>The image shows the Nmap UDP scan on ports 53, 67, and 161 (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left) and the diagram of the selected packets.</small>
 </div><br>
 
-The Snort detected two DNS packet, one DHCP, and two SNMP packets sent by Nmap and an ICMP destinanation unreachable packet response from the target for each packet sent by Nmap. Wireshark captured the same packets detected by Snort. The ICMP destination unreachable packets sent by the target had the type 3 and code 10 suggesting the ports where open|filtered, as indicated in the attacker terminal's Nmap output.
+The Snort detected two DNS packets, one DHCP, two SNMP packets sent by Nmap, and an ICMP destination unreachable packet response from the target for each packet sent by Nmap. Wireshark captured the same packets detected by Snort. The ICMP destination unreachable packets sent by the target had the type 3 and code 10 suggesting the ports were open|filtered, as indicated in the attacker terminal's Nmap output.
 
 ### References
 - `man nmap`
@@ -295,7 +295,7 @@ The Snort detected two DNS packet, one DHCP, and two SNMP packets sent by Nmap a
 - **Port Scanning:** Port scanning is a technique used by network administrators and hackers to discover open ports on a computer or network device. It involves sending data packets to a range of ports on a target system to identify which ports are active and can establish a connection, providing crucial information about potential vulnerabilities and the services running on the target.
 
 ### Attacks Description
-- **SQL injection:** SQL injection is a common cyber attack where malicious code is inserted into SQL statements, allowing attackers to gain unauthorized access to a database. By manipulating input fields on a website, hackers can exploit vulnerabilities in poorly sanitized SQL queries. This can lead to unauthorized viewing, modification, or deletion of data, posing a significant security risk to websites and applications that use SQL databases. To prevent SQL injection, input validation and parameterized queries are essential security measures.
+- **SQL injection:** SQL injection is a common cyber attack where malicious code is inserted into SQL statements, allowing attackers to gain unauthorized access to a database. By manipulating input fields on a website, hackers can exploit vulnerabilities in poorly sanitized SQL queries. This can lead to unauthorized viewing, modification, or deletion of data, posing a significant security risk to websites and applications that use SQL databases. To prevent SQL injection, input validation, and parameterized queries are essential security measures.
 - **Backdoor:** Backdoor attacks refer to unauthorized and hidden access points in a computer system or software application. Cybercriminals exploit these vulnerabilities to gain access, control, and manipulate the system without the user's knowledge. Backdoors can be intentionally created by developers for troubleshooting, but if misused or discovered by malicious actors, they pose significant security risks, allowing attackers to steal sensitive data, disrupt services, or install malware without detection. Protecting against backdoor attacks involves robust cybersecurity measures and regular system audits to identify and eliminate potential vulnerabilities.
 - **Rogue DHCP:** Rogue DHCP (Dynamic Host Configuration Protocol) attacks occur when a malicious actor sets up a rogue DHCP server on a network without authorization. This server then assigns IP addresses and network configuration settings to unsuspecting devices, diverting traffic through the attacker's system. This can lead to various security risks, including interception of sensitive data, man-in-the-middle attacks, and network disruptions. Rogue DHCP attacks exploit the trust that devices place in DHCP servers, allowing attackers to gain unauthorized access to network traffic and compromise the integrity of the network. Protecting against such attacks involves implementing network security measures, such as DHCP snooping and port security, to detect and prevent rogue DHCP servers from operating on the network.
 - **Rogue Routing:** Rogue Routing attacks, also known as route hijacking or BGP hijacking, occur when a malicious actor announces fake routing information on the internet. This misinformation deceives routers into diverting traffic through unauthorized paths. Attackers can intercept sensitive data, manipulate traffic, or disrupt services. These attacks exploit vulnerabilities in the Border Gateway Protocol (BGP), a protocol used for routing data between different networks. To mitigate Rogue Routing attacks, securing BGP configurations and implementing cryptographic solutions like Resource Public Key Infrastructure (RPKI) are essential.
@@ -309,7 +309,7 @@ The Snort detected two DNS packet, one DHCP, and two SNMP packets sent by Nmap a
 - **sqlmap:** sqlmap is an open-source penetration testing tool that automates the detection and exploitation of SQL injection vulnerabilities in web applications. It helps security professionals and ethical hackers identify and exploit these vulnerabilities, allowing them to gain unauthorized access to databases and retrieve sensitive information. sqlmap supports a wide range of database management systems and is highly customizable, making it a powerful tool for testing web application security.
 - **Empire:** Empire is a post-exploitation framework that allows cyber security professionals to maintain control over compromised systems. It provides a user-friendly interface for managing implants, allowing attackers to extract valuable information, escalate privileges, and execute various malicious actions on the target system, which makes it a potent tool in penetration testing and cyber security assessments.
 - **Katana:** Katana Framework is an open-source security software that provides a platform for security professionals and ethical hackers to perform penetration testing, vulnerability assessments, and exploitation tasks. It offers a wide range of tools and resources, making it a versatile choice for cybersecurity experts aiming to assess and enhance the security of computer systems and networks.
-- **Wireshark:** Wireshark is a GUI network protocol analyzer that allows users to capture and inspect data traveling back and forth on a computer network in real time. It provides detailed information about network traffic (packets), helping users troubleshoot network issues, analyze security problems, and understand network communication patterns. Users can also load traffic data for analysis from a previously saved capture file. Wireshark's native capture file formats are pcapng format and pcap format.
+- **Wireshark:** Wireshark is a GUI network protocol analyzer that allows users to capture and inspect data traveling back and forth on a computer network in real-time. It provides detailed information about network traffic (packets), helping users troubleshoot network issues, analyze security problems, and understand network communication patterns. Users can also load traffic data for analysis from a previously saved capture file. Wireshark's native capture file formats are pcapng format and pcap format.
 - **SSH:** The Secure Shell Protocol is a cryptographic network protocol for operating network services securely over an unsecured network. Its most notable applications are remote login and command-line execution. SSH applications are based on a client-server architecture, connecting an SSH client instance with an SSH server.
 SSH, or Secure Shell, is a cryptographic network protocol used to securely access and manage remote systems over an unsecured network. It provides a secure way to authenticate and encrypt data transmission between devices, commonly used for remote login, file transfers, and command-line execution on remote machines. SSH applications are based on a client-server architecture, connecting an SSH client instance with an SSH server.
 - **VirtualBox:** Oracle VM VirtualBox is a type-2 hypervisor for x86 virtualization developed by Oracle Corporation suitable for enterprise as well as home use. It allows users to run multiple operating systems on a single machine simultaneously. It provides a virtual environment for running guest operating systems, making it ideal for testing software, running legacy applications, or experimenting with different operating systems without the need for separate hardware.
