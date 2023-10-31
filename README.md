@@ -17,7 +17,9 @@ In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mod
 The procedure to build this lab can be found here, and it was adapted from here.
 
 ## Network Diagram
+<div align="center">
 <img src="images/intro/network_diagram.png"/>
+</div>
 
 ## VirtualBox Host-Only Network
 Host-only network is a virtual network accessed only by the Guest Virtual Machines (VM) on VirtualBox and the Host Machine running VirtualBox. It does not have access to the Internet. The Guest VMs can access the Internet by configuring an adaptor configured with NAT using IP 10.0.2.15 and Gateway/DHCP Server/Host on IP 10.0.2.2.
