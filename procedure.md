@@ -15,7 +15,7 @@
 Download and install [Oracle VM VirtualBox Manager](https://www.virtualbox.org/wiki/Downloads).
 
 ## DHCP Server Configuration
-1. On Oracle VM VirtualBox Manager window click on **Tools > Network**. Select the **Host-only Networks** tab and click on **Create** above it.
+1. On **Oracle VM VirtualBox Manager** window click on **Tools > Network**. Select the **Host-only Networks** tab and click on **Create** above it.
 2. Select the network:
     1. On the **Adapter** tab select **Configure Adapter Manually** and set:
         - **IPv4 Address:** 192.168.57.1
