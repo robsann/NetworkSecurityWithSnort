@@ -92,18 +92,13 @@ Installing with apt:
 ```
 $ sudo apt install snort
 ```
-
 Checking Snort version:
 ```
 $ snort -V
 ```
 
-### Configure Snort in the network in IDS mode
-```
-$ sudo groupadd snort
-$ sudo useradd snort -r -s /sbin/nologin -c SNORT_IDS -g snort
-```
-Edit the configuration file:
+### Edit the configuration file:
+Open configuration file:
 ```
 $ sudo nano /etc/snort/snort.conf
 ```
