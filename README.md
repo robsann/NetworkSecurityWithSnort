@@ -288,6 +288,10 @@ The Snort detected two DNS packet, one DHCP, and two SNMP packets sent by Nmap a
 
 ## Glossary
 
+### Active Enumeration
+- **Host Discovery:** Host discovery is the process of identifying active devices on a computer network. It involves techniques such as ping sweeps, network scanning, and port probing to determine which IP addresses are currently in use and accessible, providing a map of the network's live hosts.
+- **Port Scanning:** Port scanning is a technique used by network administrators and hackers to discover open ports on a computer or network device. It involves sending data packets to a range of ports on a target system to identify which ports are active and can establish a connection, providing crucial information about potential vulnerabilities and the services running on the target.
+
 ### Attacks Description
 - **SQL injection:** SQL injection is a common cyber attack where malicious code is inserted into SQL statements, allowing attackers to gain unauthorized access to a database. By manipulating input fields on a website, hackers can exploit vulnerabilities in poorly sanitized SQL queries. This can lead to unauthorized viewing, modification, or deletion of data, posing a significant security risk to websites and applications that use SQL databases. To prevent SQL injection, input validation and parameterized queries are essential security measures.
 - **Backdoor:** Backdoor attacks refer to unauthorized and hidden access points in a computer system or software application. Cybercriminals exploit these vulnerabilities to gain access, control, and manipulate the system without the user's knowledge. Backdoors can be intentionally created by developers for troubleshooting, but if misused or discovered by malicious actors, they pose significant security risks, allowing attackers to steal sensitive data, disrupt services, or install malware without detection. Protecting against backdoor attacks involves robust cybersecurity measures and regular system audits to identify and eliminate potential vulnerabilities.
