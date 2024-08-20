@@ -85,9 +85,7 @@ In this lab, we will be setting up a virtual network on VirtualBox. The network 
 
 ## Ubuntu Server Installation
 
-### Download the Ubuntu Server Image
-
-2. Download the [Ubuntu Server 22.04.2 installer ISO](https://releases.ubuntu.com/22.04.1/ubuntu-22.04.1-live-server-amd64.iso).
+First, download the [Ubuntu Server 22.04.1](https://releases.ubuntu.com/22.04.1/ubuntu-22.04.1-live-server-amd64.iso) installer ISO, then follow the steps below:
 
 <details>
 <summary>
