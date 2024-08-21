@@ -11,10 +11,10 @@ In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mod
 3. [VirtualBox Host-Only Network](#virtualbox-host-only-network)
 4. [Scenarios](#scenarios)
 	1. [Nmap Scan Detection with Snort](#1---nmap-scan-detection-with-snort)
-	2. [SQL Injection Detection with Snort](#)
-	3. [Backdoor Attacks Detection with Snort](#)
-	4. [Rogue DHCP & Routing Attacks Detection with Snort](#)
-	5. [ICMP Redirect Attack Detection with Snor](#)
+	2. SQL Injection Detection with Snort
+	3. Backdoor Attacks Detection with Snort
+	4. Rogue DHCP & Routing Attacks Detection with Snort
+	5. ICMP Redirect Attack Detection with Snor
 
 
 ## Procedure
@@ -354,13 +354,13 @@ The Snort detected two DNS packets, one DHCP, two SNMP packets sent by Nmap, and
 ----------------------------------------------------------------------------------------------------
 
 
-## 2 - SQL Injection Detection with Snort
+## 2 - SQL Injection Detection with Snort (TODO)
 
-## 3 - Backdoor Attacks Detection with Snort
+## 3 - Backdoor Attacks Detection with Snort (TODO)
 
-## 4 - Rogue DHCP & Routing Attacks Detection with Snort
+## 4 - Rogue DHCP & Routing Attacks Detection with Snort (TODO)
 
-## 5 - ICMP Redirect Attack Detection with Snor
+## 5 - ICMP Redirect Attack Detection with Snor (TODO)
 
 
 ----------------------------------------------------------------------------------------------------
