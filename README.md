@@ -108,7 +108,7 @@ alert tcp any any <> 192.168.57.4 any  (msg:"TCP RST";     flags:R;   sid:110000
 <img src="images/1-nmap/1.1-nmap_ping_scan-c.png" />
 <div align="center">
 
-&emsp;<small>The top image shows the Nmap host discovery scan running with privileges, Snort configured in NIDS mode, and the packets captured using Wireshark. The middle and bottom images display the diagrams of the excanged ICMP and TCP packets</small>
+&emsp;<small>The top image shows the Nmap host discovery scan running with privileges, Snort configured in NIDS mode, and the packets captured using Wireshark. The middle and bottom images display the diagrams of the exchanged ICMP and TCP packets</small>
 </div><br>
 
 Snort successfully intercepted the probe packets sent by Nmap: ICMP echo request, ICMP timestamp request, TCP SYN port 443, and TCP ACK port 80, as previously outlined. Additionally, Snort captured the corresponding responses: ICMP echo reply and ICMP timestamp reply for the ICMP packets, a TCP SYN/ACK from the target and a TCP RST from the host for the TCP SYN port 443 packet indicating the port is open, and a TCP RST from the target for the TCP ACK port 80 packet pointing to an unfiltered port. Wireshark also captured the same 4 ICMP packets and 5 TCP packets detected by Snort.
