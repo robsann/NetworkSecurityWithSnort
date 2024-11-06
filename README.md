@@ -108,7 +108,7 @@ alert tcp any any <> 192.168.57.4 any  (msg:"TCP RST";     flags:R;   sid:110000
 <img src="images/1-nmap/1.1-nmap_ping_scan-c.png" />
 <div align="center">
 
-&emsp;<small>The top image shows the Nmap host discovery scan running with privileges, Snort configured in NIDS mode, and the packets captured using Wireshark. The middle and bottom images display the diagrams of ICMP and TCP packets, exchanged during the Nmap host discovery with privileges.</small>
+&emsp;<small>The top image shows the Nmap host discovery scan running with privileges, Snort configured in NIDS mode, and the packets captured using Wireshark. The middle and bottom images display the diagrams of the excanged ICMP and TCP packets</small>
 </div><br>
 
 Snort successfully intercepted the probe packets sent by Nmap: ICMP echo request, ICMP timestamp request, TCP SYN port 443, and TCP ACK port 80, as previously outlined. Additionally, Snort captured the corresponding responses: ICMP echo reply and ICMP timestamp reply for the ICMP packets, a TCP SYN/ACK from the target and a TCP RST from the host for the TCP SYN port 443 packet indicating the port is open, and a TCP RST from the target for the TCP ACK port 80 packet pointing to an unfiltered port. Wireshark also captured the same 4 ICMP packets and 5 TCP packets detected by Snort.
@@ -151,7 +151,7 @@ alert tcp any any <> 192.168.57.4 any  (msg:"TCP RST/ACK"; flags:RA;  sid:110000
 <img src="images/1-nmap/1.2-nmap_ping_scan_no_priv-b.png"/>
 <div align="center">
 
-&emsp;<small>The upper image depicts the Nmap host discovery scan conducted without privileges, Snort set up in NIDS mode, and the packets captured with Wireshark. The lower image illustrates the diagram of the TCP packets exchanged during the Nmap host discovery without privileges.</small>
+&emsp;<small>The upper image depicts the Nmap host discovery scan conducted without privileges, Snort set up in NIDS mode, and the packets captured with Wireshark. The lower image illustrates the diagram of the exchanged TCP packets.</small>
 </div><br>
 
 Without privileges, Snort successfully detected and Wireshark captured two TCP three-way handshakes followed by a reset, one for port 80 and the other for port 443, indicating the ports are open. Each handshake, along with its corresponding reset, consists of a TCP SYN, a TCP SYN/ACK, and a TCP ACK to establish the connection, followed by a TCP RST/ACK to terminate it.
