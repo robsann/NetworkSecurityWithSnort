@@ -2,7 +2,7 @@
 
 # Network Security with Snort (IDS/IPS)
 
-In this homelab setup, Snort 2 is running on an Ubuntu Server virtual machine (VM) in Network Intrusion Detection System (NIDS) mode. Its primary function is to detect Nmap host discovery and port scanning techniques being used on a CentOS 7 VM. Furthermore, tests will be conducted to identify attacks such as SQL injection using tools like WPScan and SQLmap, as well as attempts to create backdoors using the Empire post-exploitation framework and Katana penetration test framework. Snort will also be utilized to detect rogue DHCP and routing attacks, in addition to ICMP Redirect attacks.
+In this homelab setup, Snort 2 is running in Network Intrusion Detection System (NIDS) mode on an Ubuntu Server virtual machine (VM). Its primary function is to detect Nmap host discovery and port scanning techniques being used on a CentOS 7 VM. Furthermore, tests will be conducted to identify attacks such as SQL injection using tools like WPScan and SQLmap, as well as attempts to create backdoors using the Empire post-exploitation framework and Katana penetration test framework. Snort will also be utilized to detect rogue DHCP and routing attacks, in addition to ICMP Redirect attacks.
 
 
 ## Outline
