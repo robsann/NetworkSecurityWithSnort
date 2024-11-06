@@ -2,7 +2,8 @@
 
 # Network Security with Snort (IDS/IPS)
 
-In this homelab, Snort operates in Network Intrusion Detection System (NIDS) mode to detect Nmap host discovery and port scanning performed by various techniques. Additionally, it detects attacks such as SQL injection performed through tools like WPScan and SQLmap, as well as backdoor attempts using the Empire post-exploitation framework and Katana penetration test framework. Snort also identified rogue DHCP and rogue routing attacks, along with ICMP Redirect attacks.
+In this homelab setup, Snort 2 is running on an Ubuntu Server virtual machine (VM) in Network Intrusion Detection System (NIDS) mode. Its primary function is to detect Nmap host discovery and port scanning techniques being used on a CentOS 7 VM. Furthermore, tests will be conducted to identify attacks such as SQL injection using tools like WPScan and SQLmap, as well as attempts to create backdoors using the Empire post-exploitation framework and Katana penetration test framework. Snort will also be utilized to detect rogue DHCP and routing attacks, in addition to ICMP Redirect attacks.
+
 
 ## Outline
 
@@ -31,7 +32,11 @@ The procedure to build this lab can be found [here](https://github.com/robsann/N
 
 Host-only network is a virtual network accessed only by the Guest Virtual Machines (VM) on VirtualBox and the Host Machine running VirtualBox. It does not have access to the Internet. The Guest VMs can access the Internet by configuring an adaptor configured with NAT using IP 10.0.2.15 and Gateway/DHCP Server/Host on IP 10.0.2.2.
 
-### Virtual Network and IP Addresses
+<details>
+<summary>
+<h3>Virtual Network and IP Addresses</h3>
+</summary>
+
 
 - **Host-only network:** Set up a Host-only network named vboxnet1 (IP range: 192.168.57.0/24) equipped with a DHCP Server (IP: 192.168.57.2) and a DHCP range spanning from 192.168.57.3 to 192.168.57.254.
 - **Kali Linux address:** The image below displays the terminal at the bottom, showing the Host Machine's connection to the host-only network (vboxnet1) using the IP address 192.168.57.1.
@@ -46,9 +51,10 @@ Host-only network is a virtual network accessed only by the Guest Virtual Machin
 
 <img src="images/intro/centos_vboxnet1_nat.png"/>
 
+</details>
+
 
 <h1 align="center" id="scenarios">Scenarios</h1>
-
 
 ## 1 - Nmap Scan Detection with Snort
 
@@ -73,7 +79,6 @@ Host discovery was performed from Kali Linux using the ping scan feature on Nmap
 <summary>
 <h3>1.1.1 - Nmap Ping Scan (with privileges)</h3>
 </summary>
-<span style="color:gray">
 
 The host discovery process, performed with the `-sn` flag, includes an ICMP echo (ping) request, TCP SYN to port 443, TCP ACK to port 80, and an ICMP timestamp request as probe packs. Privileged users scanning targets on a local network can turn off ARP or IPv6 Neighbor Discovery (ND) discovery using the `--disable-arp-ping` flag.
 
@@ -106,9 +111,9 @@ alert tcp any any <> 192.168.57.4 any  (msg:"TCP RST";     flags:R;   sid:110000
 <img src="images/1-nmap/1.1-nmap_ping_scan-a.png" />
 <img src="images/1-nmap/1.1-nmap_ping_scan-b.png" />
 <img src="images/1-nmap/1.1-nmap_ping_scan-c.png" />
-<div align="center">
 
-&emsp;<small>The top image shows the Nmap host discovery scan running with privileges, Snort configured in NIDS mode, and the packets captured using Wireshark. The middle and bottom images display the diagrams of the exchanged ICMP and TCP packets</small>
+<div align="center">
+<small><small>The top image shows the Nmap host discovery scan running with privileges, Snort configured in NIDS mode, and the packets captured using Wireshark. The middle and bottom images display the diagrams of the exchanged ICMP and TCP packets.</small></small>
 </div><br>
 
 Snort successfully intercepted the probe packets sent by Nmap: ICMP echo request, ICMP timestamp request, TCP SYN port 443, and TCP ACK port 80, as previously outlined. Additionally, Snort captured the corresponding responses: ICMP echo reply and ICMP timestamp reply for the ICMP packets, a TCP SYN/ACK from the target and a TCP RST from the host for the TCP SYN port 443 packet indicating the port is open, and a TCP RST from the target for the TCP ACK port 80 packet pointing to an unfiltered port. Wireshark also captured the same 4 ICMP packets and 5 TCP packets detected by Snort.
@@ -120,14 +125,12 @@ Snort successfully intercepted the probe packets sent by Nmap: ICMP echo request
     - **Unfiltered Ports:** When scanning unfiltered ports, open and closed ports will both return a RST packet. Nmap then labels them as unfiltered, meaning that they are reachable by the ACK packet, but whether they are open or closed is undetermined.
     - **Filtered Ports:** Ports that don't respond, or send certain ICMP error messages back (type 3, code 0, 1, 2, 3, 9, 10, or 13), are labeled filtered.
 
-</span>
 </details>
 
 <details>
 <summary>
-<h3>1.1.2 - Nmap Ping Scan (no privileges)</h3>
+<h3>1.1.2 - Nmap Ping Scan (without privileges)</h3>
 </summary>
-<span style="color:gray">
 
 When conducting host discovery without privileges, Nmap sends only two TCP SYN packets: one to port 80 and another to port 443 on the target system.
 
@@ -149,14 +152,13 @@ alert tcp any any <> 192.168.57.4 any  (msg:"TCP RST/ACK"; flags:RA;  sid:110000
 
 <img src="images/1-nmap/1.2-nmap_ping_scan_no_priv-a.png"/>
 <img src="images/1-nmap/1.2-nmap_ping_scan_no_priv-b.png"/>
-<div align="center">
 
-&emsp;<small>The upper image depicts the Nmap host discovery scan conducted without privileges, Snort set up in NIDS mode, and the packets captured with Wireshark. The lower image illustrates the diagram of the exchanged TCP packets.</small>
+<div align="center">
+<small><small>The upper image depicts the Nmap host discovery scan conducted without privileges, Snort set up in NIDS mode, and the packets captured with Wireshark. The lower image illustrates the diagram of the exchanged TCP packets.</small></small>
 </div><br>
 
 Without privileges, Snort successfully detected and Wireshark captured two TCP three-way handshakes followed by a reset, one for port 80 and the other for port 443, indicating the ports are open. Each handshake, along with its corresponding reset, consists of a TCP SYN, a TCP SYN/ACK, and a TCP ACK to establish the connection, followed by a TCP RST/ACK to terminate it.
 
-</span>
 </details>
 
 
@@ -169,7 +171,6 @@ Port scanning was conducted for both TCP and UDP protocols. In the case of TCP, 
 <summary>
 <h3>1.2.1 - TCP SYN scan</h3>
 </summary>
-<span style="color:gray">
 
 The Nmap TCP SYN scan (`-sS` flag) is the default and most popular method for a reason. It's fast and stealthy, never completing TCP connections. Unlike other scans, like NULL/FIN/Xmas, Maimon, and idle scans, it works on any standard TCP setup, avoiding platform-specific quirks. This scan type offers a way to distinguish open, closed, and filtered states.
 
@@ -198,17 +199,17 @@ alert tcp any any  <> 192.168.57.4 any (msg:"TCP RST";     flags:R;   sid:110000
 alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; itype:3; sid:1000005; rev:1;)
 ```
 
-<img src="images/1-nmap/2.1-nmap_tcp_syn_scan.png" />
-<div align="center">
+<img src="images/1-nmap/2.1-nmap_tcp_syn_scan-a.png" />
+<img src="images/1-nmap/2.1-nmap_tcp_syn_scan-b.png" />
 
-&emsp;<small>The image shows the Nmap TCP SYN scan (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left), and the diagram of the selected packets.</small>
+<div align="center">
+<small><small>The image shows the Nmap TCP SYN scan (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left), and the diagram of the selected packets.</small></small>
 </div><br>
 
 - To port 22, which is open and not filtered by the firewall, Nmap sent a SYN package (No. 4), and the Target machine replied with a SYN-ACK package (No. 5) to establish the three-way handshake connection. However, Nmap replied with an RST package (N. 6), ending the handshake without completing it.
 - To port 23, which is closed and not filtered by the firewall, Nmap sent a SYN package (No. 7), and the Target machine replied with an ICMP destination unreachable package (No. 8).
 - To port 24, which is closed and filtered by the firewall, Nmap sent a SYN package (No. 9), and the Target machine replied with an ICMP destination unreachable package (No. 10).
 
-</span>
 </details>
 
 
@@ -216,7 +217,6 @@ alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; ityp
 <summary>
 <h3>1.2.2 - TCP Connect Scan</h3>
 </summary>
-<span style="color:gray">
 
 The Nmap TCP connect scan (`-sT` option) is the default when the SYN scan isn't available due to a lack of privileges for raw packets. Instead of writing raw packets, Nmap relies on the operating system to create connections using the connect system call. Rather than read raw packet responses off the wire, Nmap uses the Berkeley Sockets API to gather status information on each connection attempt.
 
@@ -240,17 +240,18 @@ alert tcp any any  <> 192.168.57.4 any (msg:"TCP RST/ACK"; flags:RA;  sid:110000
 alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; itype:3; sid:1000005; rev:1;)
 ```
 
-<img src="images/1-nmap/2.2-nmap_tcp_connect_scan.png" />
-<div align="center">
+<img src="images/1-nmap/2.2-nmap_tcp_connect_scan-a.png" />
+<img src="images/1-nmap/2.2-nmap_tcp_connect_scan-b.png" />
+<img src="images/1-nmap/2.2-nmap_tcp_connect_scan-c.png" />
 
-&emsp;<small>The image shows the Nmap TCP Connect scan (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left), and the diagram of the selected packets.</small>
+<div align="center">
+<small><small>The image shows the Nmap TCP Connect scan (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left), and the diagram of the selected packets.</small></small>
 </div><br>
 
 - Nmap successfully established a connection to port 22, which was open and not filtered by the firewall. It sent a SYN packet, received a SYN-ACK packet in response, and then completed the three-way handshake by replying with an ACK packet. Following this, Nmap sent an RST-ACK packet to terminate the connection.
 - Nmap sent a SYN packet to port 23, which was closed but not filtered by the firewall. In response, an ICMP destination unreachable message was received.
 - Nmap sent a SYN packet to port 24 which was closed and filtered by the firewall. In response, an ICMP destination unreachable message was received.
 
-</span>
 </details>
 
 
@@ -258,7 +259,6 @@ alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; ityp
 <summary>
 <h3>1.2.3 - Null Scan, FIN Scan, and Xmas Scan</h3>
 </summary>
-<span style="color:gray">
 
 These three scan types exploit a subtle loophole in the TCP RFC to differentiate between open and closed ports. According to Page 65 of RFC 793, when the destination port's state is CLOSED, receiving an incoming segment lacking a Reset (RST) signal prompts the transmission of an RST in response. Next, it discusses packets that are sent to open and closed ports without the SYN, RST, or ACK bits set.
 
@@ -300,15 +300,15 @@ alert tcp any any <> 192.168.57.4 any (msg:"TCP FIN";       flags:F;   sif:11000
 alert tcp any any <> 192.168.57.4 any (msg:"TCP XMAS Tree"; flags:FPU; sif:11000006; rev:1;)
 ```
 
-<img src="images/1-nmap/2.3-nmap_tcp_null_fin_xmas.png" />
-<div align="center">
+<img src="images/1-nmap/2.3-nmap_tcp_null_fin_xmas-a.png" />
+<img src="images/1-nmap/2.3-nmap_tcp_null_fin_xmas-b.png" />
 
-&emsp;&emsp;<small>The image shows the Nmap TCP Null, FIN, Xmas scans (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left), and the diagram of the selected packets.</small>
+<div align="center">
+<small><small>The image shows the Nmap TCP Null, FIN, Xmas scans (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left), and the diagram of the selected packets.</small></small>
 </div><br>
 
 No responses were received for the packets sent during all three scan types, which included TCP NULL, TCP FIN, and TCP XMAS Tree probes sent by their respective methods. This suggests that port 22 is either open or filtered by the firewall.
 
-</span>
 </details>
 
 
@@ -316,7 +316,6 @@ No responses were received for the packets sent during all three scan types, whi
 <summary>
 <h3>1.2.4 - UDP Scan</h3>
 </summary>
-<span style="color:gray">
 
 While most internet services work with TCP, UDP services are also widely deployed. Examples include DNS, DHCP, and SNMP (using ports 53, 67/68, and 161/162). Scanning UDP ports is slower and more complex than TCP, but Nmap can assist in probing UDP ports.
 
@@ -342,15 +341,16 @@ alert udp any any  <> 192.168.57.4 161 (msg:"UDP SNMP"; sid:12000004; rev:1;)
 alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; itype:3; sid:1000005; rev:1;)
 ```
 
-<img src="images/1-nmap/2.6-nmap_udp_scan.png" />
-<div align="center">
+<img src="images/1-nmap/2.4-nmap_udp_scan-a.png" />
+<img src="images/1-nmap/2.4-nmap_udp_scan-b.png" />
+<img src="images/1-nmap/2.4-nmap_udp_scan-c.png" />
 
-&emsp;&emsp;<small>The image shows the Nmap UDP scan on ports 53, 67, and 161 (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left) and the diagram of the selected packets.</small>
+<div align="center">
+<small><small>The image shows the Nmap UDP scan on ports 53, 67, and 161 (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left) and the diagram of the selected packets.</small></small>
 </div><br>
 
 The Snort detected two DNS packets, one DHCP, two SNMP packets sent by Nmap, and an ICMP destination unreachable packet response from the target for each packet sent by Nmap. Wireshark captured the same packets detected by Snort. The ICMP destination unreachable packets sent by the target had the type 3 and code 10 suggesting the ports were open|filtered, as indicated in the attacker terminal's Nmap output.
 
-</span>
 </details>
 
 
@@ -375,12 +375,10 @@ The Snort detected two DNS packets, one DHCP, two SNMP packets sent by Nmap, and
 <summary>
 <h3>Active Enumeration</h3>
 </summary>
-<span style="color:gray">
 
 - **Host Discovery:** Host discovery is the process of identifying active devices on a computer network. It involves techniques such as ping sweeps, network scanning, and port probing to determine which IP addresses are currently in use and accessible, providing a map of the network's live hosts.
 - **Port Scanning:** Port scanning is a technique used by network administrators and hackers to discover open ports on a computer or network device. It involves sending data packets to a range of ports on a target system to identify which ports are active and can establish a connection, providing crucial information about potential vulnerabilities and the services running on the target.
 
-</span>
 </details>
 
 
@@ -388,7 +386,6 @@ The Snort detected two DNS packets, one DHCP, two SNMP packets sent by Nmap, and
 <summary>
 <h3>Attacks Description</h3>
 </summary>
-<span style="color:gray">
 
 - **SQL injection:** SQL injection is a common cyber attack where malicious code is inserted into SQL statements, allowing attackers to gain unauthorized access to a database. By manipulating input fields on a website, hackers can exploit vulnerabilities in poorly sanitized SQL queries. This can lead to unauthorized viewing, modification, or deletion of data, posing a significant security risk to websites and applications that use SQL databases. To prevent SQL injection, input validation, and parameterized queries are essential security measures.
 - **Backdoor:** Backdoor attacks refer to unauthorized and hidden access points in a computer system or software application. Cybercriminals exploit these vulnerabilities to gain access, control, and manipulate the system without the user's knowledge. Backdoors can be intentionally created by developers for troubleshooting, but if misused or discovered by malicious actors, they pose significant security risks, allowing attackers to steal sensitive data, disrupt services, or install malware without detection. Protecting against backdoor attacks involves robust cybersecurity measures and regular system audits to identify and eliminate potential vulnerabilities.
@@ -396,7 +393,6 @@ The Snort detected two DNS packets, one DHCP, two SNMP packets sent by Nmap, and
 - **Rogue Routing:** Rogue Routing attacks, also known as route hijacking or BGP hijacking, occur when a malicious actor announces fake routing information on the internet. This misinformation deceives routers into diverting traffic through unauthorized paths. Attackers can intercept sensitive data, manipulate traffic, or disrupt services. These attacks exploit vulnerabilities in the Border Gateway Protocol (BGP), a protocol used for routing data between different networks. To mitigate Rogue Routing attacks, securing BGP configurations and implementing cryptographic solutions like Resource Public Key Infrastructure (RPKI) are essential.
 - **ICMP Redirect:** ICMP Redirect attacks involve a malicious attacker sending falsified ICMP Redirect messages to a target host on a network. These messages deceive the host into rerouting its network traffic through an unauthorized gateway specified by the attacker. By manipulating the routing tables, the attacker can intercept, modify, or eavesdrop on the victim's data packets, leading to potential data theft, man-in-the-middle attacks, or network disruptions. ICMP Redirect attacks exploit the trust relationship between network devices, making them vulnerable to redirection instructions that appear to come from a legitimate source but are, in fact, maliciously crafted. Implementing proper network security measures, such as filtering ICMP Redirect messages and using secure routing protocols, can mitigate the risks associated with these attacks.
 
-</span>
 </details>
 
 
@@ -404,7 +400,6 @@ The Snort detected two DNS packets, one DHCP, two SNMP packets sent by Nmap, and
 <summary>
 <h3>Tools Description</h3>
 </summary>
-<span style="color:gray">
 
 - **Kali Linux:** Kali Linux is a Debian-derived Linux distribution designed for digital forensics and penetration testing. It provides a vast array of tools and resources for cyber security professionals and enthusiasts, allowing them to assess and enhance the security of computer systems and networks. It is maintained and funded by Offensive Security.
 - **Nmap:** Nmap (Network Mapper) is a free and open-source network exploration tool and security/port scanner. Nmap is used to discover hosts and open ports/services on a computer network by sending packets and analyzing the responses. Nmap provides several features for probing computer networks, including host and service discovery, service vulnerability identification, and operating system detection.
@@ -426,7 +421,6 @@ SSH, or Secure Shell, is a cryptographic network protocol used to securely acces
     - Packet logger (useful for network traffic debugging, etc).
     - Full-blown network intrusion detection system.
 
-</span>
 </details>
 
 </div>
