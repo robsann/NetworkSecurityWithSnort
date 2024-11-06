@@ -147,7 +147,8 @@ alert tcp any any <> 192.168.57.4 any  (msg:"TCP ACK";     flags:A;   sid:110000
 alert tcp any any <> 192.168.57.4 any  (msg:"TCP RST/ACK"; flags:RA;  sid:11000005; rev:1;)
 ```
 
-<img src="images/1-nmap/1.2-nmap_ping_scan_no_priv.png"/>
+<img src="images/1-nmap/1.2-nmap_ping_scan_no_priv-a.png"/>
+<img src="images/1-nmap/1.2-nmap_ping_scan_no_priv-b.png"/>
 <div align="center">
 
 &emsp;<small>The image shows the Nmap scan with no privileges (top left), Snort configured in NIDS mode (bottom left), Wireshark capturing the packets (middle left), and the diagram of the selected packets.</small>
