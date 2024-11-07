@@ -321,86 +321,89 @@ On the VM top menu, go to `Machine` > `Take a Snapshot...`, enter the snapshot n
 </details>
 
 
-## CentOS 7 Installation
+## Debian Installation on VirtualBox
 
-Download the **CentOS 7 (Minimal 2009)** disk image (ISO) from [here](http://isoredirect.centos.org/centos/7/isos/x86_64/), then follow the steps bellow.
+Download the `Debian 12.x.x amd64` disk image (ISO) from [here](https://cdimage.debian.org/debian-cd/), then follow the steps below.
+
 
 <!---------- Step 1: Create a New Virtual Machine (VM) ---------->
 <details>
-	<summary>
-		<h3>Step 1: Create a New Virtual Machine (VM)</h3>
-	</summary>
+<summary>
+<h3>Step 1: Create a New Virtual Machine (VM)</h3>
+</summary>
 
-On VirtualBox Manager, click on **New**.
-1. On **Virtual machine Name and operating system**, set:
-    - **Name:** CentOS 7 (Web Server)
-    - **Machine Folder:** /home/username/VirtualBox VMs
-    - **ISO Image:** (Leave empty to make a manual installation)
-    - **Type:** Linux
-    - **Version:** Red Hat (64-bit)
-    - Click **Next**.
-2. On **Hardware**, set:
-    - **Base Memory:** 4096 MB
-    - **Processors:** 2
-    - Click **Next**.
-3. On **Virtual Hard disk**, set:
-    - Select **Create a Virtual Hard Disk Now**
-    - **Disk Size:** 20 GB
-    - Click **Next**.
-4. On **Summary**:
-    - Review and click **Finish**
+Open the `VirtualBox Manager`, then click on `New`.
+
+1. On `Virtual machine Name and operating system`, set:
+    - `Name:` Debian (Web Server)
+    - `Machine Folder:` (Select the location to install the VM)
+    - `ISO Image:` (Leave \<not selected\> to make a manual installation)
+    - `Type:` Linux
+    - `Version:` Debian (64-bit)
+    - Click `Next`.
+2. On `Hardware`, set:
+    - `Base Memory:` 2048 MB (or more)
+    - `Processors:` 1 (or more)
+    - Click `Next`.
+3. On `Virtual Hard disk`, set:
+    - Select `Create a Virtual Hard Disk Now`
+    - `Disk Size:` 20 GB (or more)
+    - Click `Next`.
+4. On `Summary`:
+    - Review and click `Finish`
 
 </details>
 
-<!---------- Step 2: Fine Tune the VM ---------->
+
+<!---------- Step 2: Fine Tune the (VM) ---------->
 <details>
-	<summary>
-		<h3>Step 2: Fine Tune the VM</h3>
-	</summary>
+<summary>
+<h3>Step 2: Fine Tune the (VM)</h3>
+</summary>
 
-On VirtualBox Manager, click on **Settings**.
-1. On **General** > **Advanced**, set:
-    - **Shared Clipboard:** Bidirectional
-    - **Drag'n'Drop:** Bidirectional
-2. On **Storage**:
-    - Click on **Controller: IDE** > **Empty**.
-    - Then click in the **blue disk** under **Attributes** on the right side, click on **Choose a disk file...**, and select the **image file**.
-2. On **Network** > **Adapter 1** (enp0s3), set:
-    - Check **Enable Network Adapter**.
-    - **Attacket to:** NAT
-    - On **Advanced** click on **Port Forwarding**.
-    - On **Port Forwarding Rules** set the following rules to access the virtual machine from the host using **SSH**.
-      ```
-      Name  Protocol  Host IP     Host Port   Guest IP    Guest Port
-      SSH   TCP       127.0.0.1   20022       10.0.2.15   22
-      ```
-    - Using **Port Forwarding** the connection to **HostIP:HostPort** are redirected to **GuestIP:GuestPort**.
-    - Click **Ok**.
-4. On **Network** > **Adapter 3** (enp0s8), set:
-    - Check **Enable Network Adapter**.
-    - **Attacket to:** Host-only Adapter
-    - **Name:** vboxnet1
-5. Then click **OK** to finish.
+On `VirtualBox Manager`, click on `Settings`.
+
+1. On `General` > `Advanced`, set:
+    - `Shared Clipboard:` Bidirectional
+    - `Drag'n'Drop:` Bidirectional
+2. On `Storage`:
+    - Click on `Controller: IDE` > `Empty`.
+    - Then click on the `blue disk` under `Attributes` at the right side, click `Choose a disk file...`, and select the `image file`.
+3. On `Network` > `Adapter 1` (enp0s3), set:
+    - Check `Enable Network Adapter`.
+    - `Attacket to:` NAT
+4. On `Network` > `Adapter 2` (enp0s8), set:
+    - Check `Enable Network Adapter`.
+    - `Attached to:` Host-only Adapter
+    - `Name:` vboxnet1
+5. Then click `OK` to finish.
 
 </details>
 
-<!---------- Step 3: Install CentOS 7 ---------->
+
+<!---------- Step 3: Install Debian CLI ---------->
 <details>
-	<summary>
-		<h3>Step 3: Install CentOS 7</h3>
-	</summary>
+<summary>
+<h3>Step 3: Install Debian CLI</h3>
+</summary>
 
-On VirtualBox Manager, click on **Start**.
+On `VirtualBox Manager`, click on `Sart`.
 
-On **CentOS 7 Setup**:
-1. Select **Install CentOS 7**
-2. Select **language**.
-3. On **SYSTEM**, click **INSTALLATION DESTINATION** and select the disk.
-4. Click on **Begin installation**.
-5. Set **ROOT PASSWORD** and create user at **USER CREATION**.
-6. After install, click on **Reboot**.
+1. When the Debian installer menu appears, select `Install` to start the installation process.
+2. Select `language`.
+3. Select `your location`.
+4. On `Configure the keyboard`, select `keymap` to use.
+5. On `Configure the network`, select `enp0s3` interface, create a `hostname` and `domain name`.
+6. On `Set up users and password`, define the `password` of the `root account`.
+7. On `Set up users and password`, set the `user name`, `username`, and `password` of the `new user`.
+8. On `Partition disks` chose `Guided - use entire disk`, select the `partition`, and `partition scheme`. Then hit enter on `Finish partitioning and write changes to disk` to apply the configurations.
+9. On `Configure the package manager`, hit enter on `No`, select the `mirror country`, and the `Debian archive mirror`. Then leave `HTTP proxy information` empty and hit enter on `Continue` to start the installation.
+12. On `Software selection` select only `web server`, `SSH server`, and `standard system utilities`, then hit Enter on `Continue`.
+13. On `Configuring grup-pc`, select `Yes` to install the GRUB boot loader, then select the `/dev/sda` device for the boot loader installation.
+14. On `Finish the installation`, hit `Continue` to finish the installation.
 
 </details>
+
 
 <!---------- Step 4: Final Adjustments ---------->
 <details>
@@ -408,125 +411,158 @@ On **CentOS 7 Setup**:
 <h3>Step 4: Final Adjustments</h3>
 </summary>
 
-1. Include **user** on **sudoers**:
-    1. Change to **root** account:
-        ```bash
-        su -
-        ```
-    2. Verify if the **wheel** group is **enabled**:
-        1. Open the **sudoers** file (/etc/sudoers) using the **visudo**:
-            ```bash
-            visudo
-            ```
-        2. Scroll down to find the section below that grants privileges to the **wheel** group and uncomment it if commented:
-            ```bash
-            ## Allows people in group wheel to run all commands
-            %wheel        ALL=(ALL)       ALL
-            ```
-    3. Add **user** to the **wheel** group:
-        ```bash
-        usermod -aG wheel user
-        ```
-    4. Test **sudo privileges** for the **user account**:
-        1. Switch to the **user account** using the following command:
-            ```bash
-            su - user
-            ```
-        2. Test a command with **sudo**:
-            ```bash
-            sudo ls -la /root
-            ```
-2. Updathe the system:
+After rebooting `log in` with your credentials.
+
+1. First, add the `sbin` folders to the `$PATH` environment variable by adding the command below at the end of the `.profile` file in the user account folder:
     ```bash
-    sudo yum update
+    $ nano /home/<username>/.profile
     ```
-3. Install useful network packages:
+    - Add the line below at the end of the file:
     ```bash
-    sudo yum install net-tools wget bind-utils
+    export PATH=$PAHT:/usr/local/sbin:/usr/sbin:/sbin
     ```
-4. Configure the **network interfaces**:
-    1. Configure the network interface **enp0s3** (NAT):
-        1. Open the **enp0s3 configuration file**:
-            ```bash
-            nano /etc/sysconfig/network-scripts/ifcfg-enp0s3
-            ```
-        2. Set **ONBOOT** to **yes** and save the file.
-    2. Configure the network interface **enp0s9** (Host-only Network) to use a **static IP address**:
-        1. Open the **enp0s9 configuration file** and set:
-            ```bash
-            nano /etc/sysconfig/network-scripts/ifcfg-enp0s9
-                BOOTPROTO=static
-                ONBOOT=yes
-                IPADDR=192.168.57.4
-                NETMASK=255.255.255.0
-            ```
-    3. **Restart** all the **network interfaces**:
+2. Now log into the root account and `update the system`:
+    ```bash
+    $ su -
+    \# apt update && apt upgrade
+    ```
+3. Install the `sudo package`, add your user account to the `sudo group`, and `reboot` the system:
+    ```bash
+    \# apt install sudo
+    \# usermod -aG sudo <username>
+    \# reboot
+    ```
+4. Install helpful `network and other packages`:
+    ```bash
+    $ sudo apt install net-tools network-manager netplan.io systemd-resolved git
+    ```
+4. Set the `static IP address` to the Host-only Interface (`enp0s8`):
+    1. Unmask and enable network services:
         ```bash
-        sudo systemctl restart network
+        $ sudo systemctl unmask systemd-networkd.service
+        $ sudo systemctl unmask systemd-resolved.service
+        $ sudo systemctl enable systemd-networkd.service
+        $ sudo systemctl mask networking
+        $ sudo systemctl enable systemd-resolved.service
         ```
-5. (Optional) Improve shell with zshell:
+    2. Migrate to Netplan.io:
+        ```bash
+        $ sudo ENABLE_TEST_COMMANDS=1 netplan migrate && sudo netplan try
+        ```
+        - Press `Enter` to save the changes.
+    3. Fix the permissions for the created netplan file:
+        ```bash
+        $ sudo chmod 600 /etc/netplan/*
+        ```
+    4. Open the netplan .yaml file to set the static IP address:
+        ```bash
+        $ sudo nano /etc/netplan/*yaml
+        ```
+        - Set the following parameters:
+        ```yml
+        network:
+          ethernets:
+            enp0s3:
+              dhcp4: true
+            enp0s8:
+              dhcp4: no
+              addresses: [192.168.57.4/24]
+          version: 2
+        ```
+    5. Reboot the system, then check the IP address:
+        ```bash
+        $ sudo reboot
+        $ ifconfig
+        ```
+    6. (Optional) To access the VM from the Host Machine using SSH run:
+		```bash
+		$ ssh user@192.168.57.4
+		```
+6. (Optional) Improve shell with zshell:
     1. Install zsh:
         ```bash
-        sudo yum install zsh wget git
+        $ sudo apt install zsh
         ```
-    2. Set zsh as the default shell for root or the user of your choice:
+    2. Install zshell plugins:
         ```bash
-        chsh -s /bin/zsh root
+        $ sudo apt install zsh-syntax-highlighting zsh-autosuggestions
         ```
-    3. Install oh-my-zsh:
+    3. Install fonts, qterminal, gnome-tweaks, and dos2unix:
         ```bash
-        wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+        $ sudo apt install qterminal fonts-firacode gnome-tweaks dos2unix
         ```
-        - To uninstall oh-my-zsh type:
+    4. Use the command below to copy the content of `.zshrc` from [here](https://pastebin.com/rhrWSiaL) to the `~/.zshrc` file.
+        ```bash
+        $ wget -qO ~/.zshrc https://pastebin.com/raw/rhrWSiaL
+        ```
+    5. Run the `zsh` command to enter the Z shell, run the `dos2unix` command to fix the error `command not found: ^M` on the `.zshrc` file if any, then source the `.zshrc` file:
+        ```bash
+        $ zsh
+        $ dos2unix -f .zshrc
+        $ source .zshrc
+        ```
+    6. Change the default login shell (use `echo $SHELL` to display the current login shell):
+        ```bash
+        $ chsh -s /bin/zsh
+        ```
+    6. Log out and log back into the server, then check the current login shell:
+        ```bash
+        $ echo $SHELL
+        ```
+7. Install Guest Additions:
+    1. On the VM menu click on `Device` > `Insert Guest Additions CD Image...`.
+    2. Mount the ISO image with the guest additions:
+        ```bash
+        $ sudo mount /dev/cdrom /media/cdrom
+        ```
+    3. Install guest additions:
+        ```bash
+        $ sudo /media/cdrom/VBoxLinuxAdditions.run
+        ```
+8. Configure shared folder:
+    1. On the VM menu click on `Machine` > `Settings...`.
+        1. Go to `Shared Folders` and click on the `blue folder with the plus sign` at the right.
+        2. Chose the `Folder Path`, type the `Folder Name`, leave only `Make Permanten` checked, then click `OK`.
+        3. Click `OK` to leave save the changes.
+    2. Back on terminal, mount the directory on a folder with a name different than the `Folder Name` set previously:
+        1. Create a directory at your user directory `~/` to be the mounting point:
             ```bash
-            uninstall_oh_my_zsh
+            $ mkdir ~/shared
+			```
+		2. Mount the host-shared folder with the command below to have its uid and gui equal to 1000:
+			```bash
+            $ sudo mount -t vboxsf -o rw,uid=1000,gid=1000 <shared_host> ~/shared
             ```
-    4. Copy the oh-my-zsh tamplate to `~/.zshrc` and source `.zshrc`:
-        ```bash
-        cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-        source ~/.zshrc
-        ```
-    5. Download the kali theme and the autosuggestions and syntax highlighting plugins:
-        ```bash
-        wget -O ~/.oh-my-zsh/themes/kali-like.zsh-theme https://raw.githubusercontent.com/clamy54/kali-like-zsh-theme/master/kali-like.zsh-theme
-        git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-        ```
-    6. On `kali-like.zsh-theme`, disable syntax highlighting and autosuggestions:
-        ```bash
-        nano .oh-my-zsh/themes/kali-like.zsh-theme
-            USE_SYNTAX_HIGHLIGHTING=no
-            USE_ZSH_AUTOSUGGESTIONS=no
-        ```
-    7. On `.zshrc`, enable syntax highlighting and autosuggestions:
-        ```bash
-        nano .zshrc
-            plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-        ```
-    6. On `.zshrc` set `ZSH_THEME` to `kali-like` then source `.zshrc`:
-        ```bash
-        nano ~/.zshrc
-            ZSH_THEME="kali-like"
-        source ~/.zshrc
-        ```
+        	- In this case `shared_host` is the `Folder Name` set on VirtualBox and `~/shared` is the mounting point.
+	3. (TODO) To make it permanent, set to mount the shared directory on startup following the steps below:
+        1. Create an script which will mount the shared folder:
+            ```bash
+            $ nano mount_shared.sh
+            ```
+            - Set to the script the content below:
+            ```bash
+			#!/bin/bash
+            sudo mount -t vboxsf -o rw,uid=1000,gid=1000 <shared_host> ~/shared
+            ```
+			- Where `shared_host` is the `Folder Name` set on Virtualbox and `~/shared` is the mounting point.
+        2. (TODO) Run the script on startup.
+        3. After rebooting the VM, the VirtualBox shared folder should mount automatically:
+        	```bash
+        	$ sudo shutdown -r now
+        	```
 
 </details>
+
 
 <!---------- Step 5: Create a Snapshot ---------->
 <details>
-	<summary>
-		<h3>Step 5: Create a Snapshot</h3>
-	</summary>
+<summary>
+<h3>Step 5: Create a Snapshot</h3>
+</summary>
 
-On the VM top menu, go to **Machine** > **Take a Snapshot...**, enter the snapshot name and description then click **OK**.
+On the VM top menu, go to `Machine` > `Take a Snapshot...`, enter the snapshot name and description, then click `OK`.
 
 </details>
-
-#### Notifications
-- Mouse integration
-- Auto capture keyboard
-
-
 ## NIDS/NIPS Snort 2 Setup on Ubuntu Server
 
 <details>
