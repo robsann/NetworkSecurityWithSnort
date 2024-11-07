@@ -85,92 +85,431 @@ In this lab, we will be setting up a virtual network on VirtualBox. The network 
 
 ## Ubuntu Server Installation
 
-First, download the [Ubuntu Server 22.04.1](https://releases.ubuntu.com/22.04.1/ubuntu-22.04.1-live-server-amd64.iso) installer ISO, then follow the steps below:
+Download the `Ubuntu Server 22.04.x LTS` disk image (ISO) from [here](https://cdimage.ubuntu.com/ubuntu-server/jammy/daily-live/current/), then follow the steps bellow.
 
+
+<!---------- Step 1: Create a New Virtual Machine (VM) ---------->
 <details>
-<summary>
-<h3>Create a New Virtual Machine (VM)</h3>
-</summary>
-<span style="color:gray">
+	<summary>
+		<h3>Step 1: Create a New Virtual Machine (VM)</h3>
+	</summary>
 
-3. On the **VirtualBox Manager**, click on **New**:
-    1. **Name and operating system**
-        1. Fill the fields and click **Next**.
-    2. **Memory Size**:
-        1. Set 4 GB or more and click **Next**.
-    3. **Hard disk**:
-        1. Select **Create a virtual hard disk now** and click **Create**.
-    4. **Hard disk file type**:
-        1. Select **VDI (VirtualBox Disk Image)** and click **Next**.
-    5. **Storage on physical hard disk**:
-        1. Select **Dynamically allocated** and click **Next**.
-    6. **File location and size**
-        1. Choose **file location**.
-        2. **Disk size**: 30 GB
-        3. Click on **Create**.
+Open `VirtualBox Manager` and click on `New`.
+1. On `Virtual machine Name and operating system`, set:
+    - `Name:` Ubuntu Server (SOC Tools)
+    - `Machine Folder:` (Select the location to install the VM)
+    - `ISO Image:` (Leave \<not selected\>)
+    - `Type:` Linux
+    - `Version:` Ubuntu (64-bit)
+    - Click `Next`.
+2. On `Hardware`, set:
+    - `Base Memory:` 4096 MB (or more)
+    - `Processors:` 2 (or more)
+    - Click `Next`.
+3. On `Virtual Hard disk`, set:
+    - Select `Create a Virtual Hard Disk Now`
+    - `Disk Size:` 80 GB (or more)
+    - Click `Next`.
+4. On `Summary`:
+    - Review and click `Finish`.
 
-</span>
 </details>
 
 
+<!---------- Step 2: Fine Tune the VM ---------->
 <details>
-<summary>
-<h3>Fine Tune the VM and Select OS Image</h3>
-</summary>
-<span style="color:gray">
+	<summary>
+		<h3>Step 2: Fine Tune the VM</h3>
+	</summary>
 
-4. On the **VirtualBox Manager**, select the **Ubuntu Server VN** created and click on **Settings**.
-    1. On **System > Processor** set 2 CPUs on **Processor(s)**.
-    2. On **Storage** at the **Storage Devices**, click on  **Controller: IDE > Empty**, then click on the disk on the right side of **Optical Drive** and choose the downloaded **Ubuntu Server image**.
-    3. On **Network > Adapter 1**:
-        1. **Attached to:** NAT
-    4. On **Network > Adapter 3**:
-        1. **Attached to:** Host-only Adapter
-        2. **Name:** vboxnet1
-        3. **Advanced > Promiscuous Mode:** Allow All
-    4. Click on **OK**.
+On `VirtualBox Manager`, select the created VM and click on `Settings`.
+1. On `General` > `Advanced`, set:
+    - `Shared Clipboard:` Bidirectional
+    - `Drag'n'Drop:` Bidirectional
+2. On `Storage`:
+    - Click on `Controller: IDE` > `Empty`.
+    - Then click on the `blue disk` under `Attributes` at the right side, click `Choose a disk file...`, and select the `Ubuntu Server image file`.
+3. On `Network` > `Adapter 1` (enp0s3), set:
+    - Check `Enable Network Adapter`.
+    - `Attacket to:` NAT
+4. On `Network` > `Adapter 2` (enp0s8), set:
+    - Check `Enable Network Adapter`.
+    - `Attached to:` Host-only Adapter
+    - `Name:` vboxnet1
+5. Then click `OK` to finish.
 
-</span>
 </details>
 
 
+<!---------- Step 3: Install Ubuntu Server ---------->
+<details>
+	<summary>
+		<h3>Step 3: Install Ubuntu Server</h3>
+	</summary>
+
+On `VirtualBox Manager`, click on `Sart`.
+1. Hit Enter on `Try or install Ubuntu Server`.
+2. Select the `language`.
+3. On `Installer update available`, hit Enter on `Continue without updating`.
+4. On `Keyboard configuration`, select the `Layout` and the `Variant`, then hit Enter on `Done`.
+5. On `Choose type of install`, leave `Ubuntu Server` selected and hit Enter on `Done`.
+6. On `Network connections`, just check the IP addresses and hit Enter on `Done`.
+7. On `Configure proxy`, leave it empty and hit Enter on `Done`.
+8. On `Configure Ubuntu archive mirror`, just hit Enter on `Done`.
+9. On `Guided storage configuration`, leave the default and hit Enter on `Done`.
+10. On `Storage configuration`, just hit Enter on `Done`.
+    - On the message box `Confirm destructive action` hit Enter on `Continue`.
+11. On `Profile setup`, fill up the fields ant hit Enter on `Done`.
+12. On `Upgrade to Ubuntu Pro`, select `Skip for now` and hit Enter on `Continue`.
+13. On `SSH Setup`, select `Install OpenSSH server`, then hit Enter on `Done`.
+14. On `Featured Server Snaps`, just hit Enter on `Done` and the installation will begin.
+14. On `Install complete!`, hit Enter on `Cancel update and reboot`. It will take some time to `reboot`.
+15. Remove the installation medium if needed on `Devices` > `Optical Drives`, then press `ENTER`.
+
+</details>
+
+
+<!---------- Step 4: Final Adjustments ---------->
 <details>
 <summary>
-<h3>Install Ubuntu Server</h3>
+<h3>Step 4: Final Adjustments</h3>
 </summary>
-<span style="color:gray">
 
-5. On **VirtualBox Manager**, select the **Ubuntu Server VM** and click on **Start**.
-    1. Hit enter on **Try or Install Ubuntu Server**.
-    2. Select **language**.
-    3. On **Installer update available**:
-        1. Select **Continue without updating**.
-    4. On **Keyboard configuration**:
-        1. Select **Layout** and **Variant** and hit enter on **Done**.
-    5. On **Choose type of install**:
-        1. Choose **Ubuntu Server** and hit enter on **Done**.
-    6. On **Network connections**:
-        1. `enp0s3 DHCPv4` should be `eth 10.0.2.15/24`.
-        2. `enp0s9 DHCPv4` should be `eth 192.168.57.3/24`.
-        3. Hit enter on **Done**.
-    7. On **Configure proxy**, just hit enter on **Done**.
-    8. On **Configure Ubuntu archive mirror**, just hit enter on **Done**.
-    9. On **Guided storage configuration**, just leave default and hit enter on **Done**.
-    10. On **Storage configuration**, just hit enter on **Done**.
-        1. On the message box **Confirm destructive action** click on **Continue**.
-    11. On **Profile setup**, fill the fields ant press enter on **Done**.
-    12. On **Upgrade to Ubuntu Pro** select **Skip for now** and hit enter on **Continue**.
-    13. On **SSH Setup** select **Install OpenSSH server** and hit enter on **Done**.
-    14. On **Featured Server Snaps**, just press enter on **Done** and the installation will start.
-    15. On **Install complete!** hit enter on **Cancel update and reboot**, it will take a while to reboot.
-    16. On, **Please remove the installation medium**, just hit **ENTER** and it will reboot.
+After rebooting `log in` with your credentials.
 
-</span>
+1. `Update` the system:
+    ```bash
+    $ sudo apt update && sudo apt upgrade -y
+    ```
+2. Install helpful `network and other packages`:
+    ```bash
+    $ sudo apt install net-tools network-manager ntpdate jq
+    ```
+3. Update `date and time` if needed:
+    ```bash
+    $ date
+    $ sudo ntpdate time.nist.gov
+    ```
+4. Set the `static IP address` to the Host-only Interface (`enp0s8`):
+    1. Open the netplan .yaml file:
+        ```bash
+        $ sudo nano /etc/netplan/*yaml
+        ```
+        - Set the following parameters:
+        ```yml
+        network:
+          ethernets:
+            enp0s3:
+              dhcp4: true
+            enp0s8:
+              dhcp4: no
+              addresses: [192.168.57.3/24]
+          version: 2
+        ```
+    2. Apply the netplan changes, restart the NetworkManager, and check the `enp0s8` interface IP address:
+        ```bash
+        $ sudo netplan apply
+        $ sudo systemctl restart NetworkManager
+        $ ifconfig
+        ```
+	3. (Optional) To access the VM from the Host Machine using SSH, run the command below from the host machine:
+        ```bash
+        $ ssh user@192.168.57.3
+        ```
+5. (Optional) Improve shell with `zshell`:
+    1. Install zsh:
+        ```bash
+        $ sudo apt install zsh
+        ```
+    2. Install zshell plugins:
+        ```bash
+        $ sudo apt install zsh-syntax-highlighting zsh-autosuggestions
+        ```
+    3. Install fonts, qterminal, and gnome-tweaks:
+        ```bash
+        $ sudo apt install qterminal fonts-firacode gnome-tweaks
+        ```
+    4. Change the default login shell (use `echo $SHELL` to display the current shell):
+        ```bash
+        $ chsh -s /bin/zsh
+        ```
+    5. Copy the content of `.zshrc` from [here](https://pastebin.com/rhrWSiaL), create a new `~/.zshrc` file and paste the copied content.
+    6. Log out and log back into the server. Type the command below to display your current shell:
+        ```bash
+        $ echo $SHELL
+        ```
+6. Install `Guest Additions`:
+    1. On the VM menu click on `Device` > `Insert Guest Additions CD Image...`.
+    2. Create the `/media/cdrom` folder and mount the ISO image with the guest additions:
+        ```bash
+        $ sudo mkdir /media/cdrom
+        $ sudo mount /dev/cdrom /media/cdrom
+        ```
+    3. Install the dependencies for VirtualBox guest additions:
+        ```bash
+        $ sudo apt update
+        $ sudo apt install -y build-essential linux-headers-`uname -r`
+        ```
+    4. Install guest additions and reboot the VM:
+        ```bash
+        $ sudo /media/cdrom/VBoxLinuxAdditions.run
+        $ sudo shutdown -r now
+        ```
+7. Configure `VirtualBox shared folder`:
+    1. On the VM top menu, click on `Machine` > `Settings...`.
+        1. Go to `Shared Folders` and click on the `blue folder with the plus sign` at the right.
+        2. Chose the `Folder Path`, type the `Folder Name`, and check `Make Permanten` only.
+    2. Back on the guest's terminal, mount the directory on a folder with a name different than the `Folder Name` set previously on the VirtualBox interface:
+        1. Create a directory at your user directory `~/` to be the mounting point:
+            ```bash
+            $ sudo mkdir /home/<username>/shared
+            ```
+        2. Mount the host's shared folder with the command below to change its uid and gid to 1000:
+            ```bash
+            $ sudo mount -t vboxsf -o rw,uid=1000,gid=1000 <shared_host> /home/<username>/shared
+            ```
+        - Replace `<shared_host>` by the `Folder Name` set on the VirtualBox interface and `<username>` by your username.
+    3. To make this permanent, let's set to mount the shared directory on startup.
+        1. Edit the `fstab` file in the `/etc` directory:
+            ```bash
+            $ sudo nano /etc/fstab
+            ```
+            - At the end of the file, add the line below using the tab to separate the fields and replace <shared_host> with `Folder Name` defined earlier and save:
+            ```bash
+            <shared_host>	/home/<username>/shared	vboxsf	defaults	0	0
+            ```
+        2. Edit `modules`:
+            ```bash
+            $ sudo nano /etc/modules
+            ```
+            - At the end of the file, add the following line and save:
+            ```bash
+            vboxsf
+            ```
+        3. After rebooting the VM, the VirtualBox shared folder should mount automatically:
+        	```bash
+        	$ sudo shutdown -r now
+        	```
+
 </details>
+
+
+<!---------- Step 5: Create a Snapshot ---------->
+<details>
+	<summary>
+		<h3>Step 5: Create a Snapshot</h3>
+	</summary>
+
+On the VM top menu, go to `Machine` > `Take a Snapshot...`, enter the snapshot name and description, then click `OK`.
+
+</details>
+
 
 ## CentOS 7 Installation
 
-### - TODO
+Download the **CentOS 7 (Minimal 2009)** disk image (ISO) from [here](http://isoredirect.centos.org/centos/7/isos/x86_64/), then follow the steps bellow.
+
+<!---------- Step 1: Create a New Virtual Machine (VM) ---------->
+<details>
+	<summary>
+		<h3>Step 1: Create a New Virtual Machine (VM)</h3>
+	</summary>
+
+On VirtualBox Manager, click on **New**.
+1. On **Virtual machine Name and operating system**, set:
+    - **Name:** CentOS 7 (Web Server)
+    - **Machine Folder:** /home/username/VirtualBox VMs
+    - **ISO Image:** (Leave empty to make a manual installation)
+    - **Type:** Linux
+    - **Version:** Red Hat (64-bit)
+    - Click **Next**.
+2. On **Hardware**, set:
+    - **Base Memory:** 4096 MB
+    - **Processors:** 2
+    - Click **Next**.
+3. On **Virtual Hard disk**, set:
+    - Select **Create a Virtual Hard Disk Now**
+    - **Disk Size:** 20 GB
+    - Click **Next**.
+4. On **Summary**:
+    - Review and click **Finish**
+
+</details>
+
+<!---------- Step 2: Fine Tune the VM ---------->
+<details>
+	<summary>
+		<h3>Step 2: Fine Tune the VM</h3>
+	</summary>
+
+On VirtualBox Manager, click on **Settings**.
+1. On **General** > **Advanced**, set:
+    - **Shared Clipboard:** Bidirectional
+    - **Drag'n'Drop:** Bidirectional
+2. On **Storage**:
+    - Click on **Controller: IDE** > **Empty**.
+    - Then click in the **blue disk** under **Attributes** on the right side, click on **Choose a disk file...**, and select the **image file**.
+2. On **Network** > **Adapter 1** (enp0s3), set:
+    - Check **Enable Network Adapter**.
+    - **Attacket to:** NAT
+    - On **Advanced** click on **Port Forwarding**.
+    - On **Port Forwarding Rules** set the following rules to access the virtual machine from the host using **SSH**.
+      ```
+      Name  Protocol  Host IP     Host Port   Guest IP    Guest Port
+      SSH   TCP       127.0.0.1   20022       10.0.2.15   22
+      ```
+    - Using **Port Forwarding** the connection to **HostIP:HostPort** are redirected to **GuestIP:GuestPort**.
+    - Click **Ok**.
+4. On **Network** > **Adapter 3** (enp0s8), set:
+    - Check **Enable Network Adapter**.
+    - **Attacket to:** Host-only Adapter
+    - **Name:** vboxnet1
+5. Then click **OK** to finish.
+
+</details>
+
+<!---------- Step 3: Install CentOS 7 ---------->
+<details>
+	<summary>
+		<h3>Step 3: Install CentOS 7</h3>
+	</summary>
+
+On VirtualBox Manager, click on **Start**.
+
+On **CentOS 7 Setup**:
+1. Select **Install CentOS 7**
+2. Select **language**.
+3. On **SYSTEM**, click **INSTALLATION DESTINATION** and select the disk.
+4. Click on **Begin installation**.
+5. Set **ROOT PASSWORD** and create user at **USER CREATION**.
+6. After install, click on **Reboot**.
+
+</details>
+
+<!---------- Step 4: Final Adjustments ---------->
+<details>
+<summary>
+<h3>Step 4: Final Adjustments</h3>
+</summary>
+
+1. Include **user** on **sudoers**:
+    1. Change to **root** account:
+        ```bash
+        su -
+        ```
+    2. Verify if the **wheel** group is **enabled**:
+        1. Open the **sudoers** file (/etc/sudoers) using the **visudo**:
+            ```bash
+            visudo
+            ```
+        2. Scroll down to find the section below that grants privileges to the **wheel** group and uncomment it if commented:
+            ```bash
+            ## Allows people in group wheel to run all commands
+            %wheel        ALL=(ALL)       ALL
+            ```
+    3. Add **user** to the **wheel** group:
+        ```bash
+        usermod -aG wheel user
+        ```
+    4. Test **sudo privileges** for the **user account**:
+        1. Switch to the **user account** using the following command:
+            ```bash
+            su - user
+            ```
+        2. Test a command with **sudo**:
+            ```bash
+            sudo ls -la /root
+            ```
+2. Updathe the system:
+    ```bash
+    sudo yum update
+    ```
+3. Install useful network packages:
+    ```bash
+    sudo yum install net-tools wget bind-utils
+    ```
+4. Configure the **network interfaces**:
+    1. Configure the network interface **enp0s3** (NAT):
+        1. Open the **enp0s3 configuration file**:
+            ```bash
+            nano /etc/sysconfig/network-scripts/ifcfg-enp0s3
+            ```
+        2. Set **ONBOOT** to **yes** and save the file.
+    2. Configure the network interface **enp0s9** (Host-only Network) to use a **static IP address**:
+        1. Open the **enp0s9 configuration file** and set:
+            ```bash
+            nano /etc/sysconfig/network-scripts/ifcfg-enp0s9
+                BOOTPROTO=static
+                ONBOOT=yes
+                IPADDR=192.168.57.4
+                NETMASK=255.255.255.0
+            ```
+    3. **Restart** all the **network interfaces**:
+        ```bash
+        sudo systemctl restart network
+        ```
+5. (Optional) Improve shell with zshell:
+    1. Install zsh:
+        ```bash
+        sudo yum install zsh wget git
+        ```
+    2. Set zsh as the default shell for root or the user of your choice:
+        ```bash
+        chsh -s /bin/zsh root
+        ```
+    3. Install oh-my-zsh:
+        ```bash
+        wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+        ```
+        - To uninstall oh-my-zsh type:
+            ```bash
+            uninstall_oh_my_zsh
+            ```
+    4. Copy the oh-my-zsh tamplate to `~/.zshrc` and source `.zshrc`:
+        ```bash
+        cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+        source ~/.zshrc
+        ```
+    5. Download the kali theme and the autosuggestions and syntax highlighting plugins:
+        ```bash
+        wget -O ~/.oh-my-zsh/themes/kali-like.zsh-theme https://raw.githubusercontent.com/clamy54/kali-like-zsh-theme/master/kali-like.zsh-theme
+        git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+        ```
+    6. On `kali-like.zsh-theme`, disable syntax highlighting and autosuggestions:
+        ```bash
+        nano .oh-my-zsh/themes/kali-like.zsh-theme
+            USE_SYNTAX_HIGHLIGHTING=no
+            USE_ZSH_AUTOSUGGESTIONS=no
+        ```
+    7. On `.zshrc`, enable syntax highlighting and autosuggestions:
+        ```bash
+        nano .zshrc
+            plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+        ```
+    6. On `.zshrc` set `ZSH_THEME` to `kali-like` then source `.zshrc`:
+        ```bash
+        nano ~/.zshrc
+            ZSH_THEME="kali-like"
+        source ~/.zshrc
+        ```
+
+</details>
+
+<!---------- Step 5: Create a Snapshot ---------->
+<details>
+	<summary>
+		<h3>Step 5: Create a Snapshot</h3>
+	</summary>
+
+On the VM top menu, go to **Machine** > **Take a Snapshot...**, enter the snapshot name and description then click **OK**.
+
+</details>
+
+#### Notifications
+- Mouse integration
+- Auto capture keyboard
+
 
 ## NIDS/NIPS Snort 2 Setup on Ubuntu Server
 
