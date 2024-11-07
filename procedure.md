@@ -225,16 +225,26 @@ After rebooting `log in` with your credentials.
         ```bash
         $ sudo apt install zsh-syntax-highlighting zsh-autosuggestions
         ```
-    3. Install fonts, qterminal, and gnome-tweaks:
+    3. Install fonts, qterminal, gnome-tweaks, and dos2unix:
         ```bash
-        $ sudo apt install qterminal fonts-firacode gnome-tweaks
+        $ sudo apt install qterminal fonts-firacode gnome-tweaks dos2unix
         ```
-    4. Change the default login shell (use `echo $SHELL` to display the current shell):
+    4. Use the command below to copy the content of `.zshrc` from [here](https://pastebin.com/rhrWSiaL) to the `~/.zshrc` file.
+        ```bash
+        $ wget -qO ~/.zshrc https://pastebin.com/raw/rhrWSiaL
+        ```
+    5. Run the `zsh` command to enter the Z shell, run the `dos2unix` command to fix the error `command not found: ^M` on the `.zshrc` file if any, then source the `.zshrc` file:
+        ```bash
+        $ zsh
+        $ dos2unix -f .zshrc
+        $ source .zshrc
+        ```
+        - **Note:** `^M` represents the carriage return (CR) character commonly used in Windows-style text files to indicate the end of a line.
+    6. Change the default login shell (use `echo $SHELL` to display the current login shell):
         ```bash
         $ chsh -s /bin/zsh
         ```
-    5. Copy the content of `.zshrc` from [here](https://pastebin.com/rhrWSiaL), create a new `~/.zshrc` file and paste the copied content.
-    6. Log out and log back into the server. Type the command below to display your current shell:
+    6. Log out and log back into the server, then check the current login shell:
         ```bash
         $ echo $SHELL
         ```
