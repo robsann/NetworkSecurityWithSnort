@@ -233,18 +233,24 @@ After rebooting `log in` with your credentials.
         ```bash
         $ wget -qO ~/.zshrc https://pastebin.com/raw/rhrWSiaL
         ```
-    5. Run the `zsh` command to enter the Z shell, run the `dos2unix` command to fix the error `command not found: ^M` on the `.zshrc` file if any, then source the `.zshrc` file:
+    5. Run the `zsh` command to enter the Z shell:
         ```bash
         $ zsh
+        ```
+        - If the error `command not found: ^M` on the `.zshrc` file is displayed in the terminal, run the command below to fix it:
+        ```bash
         $ dos2unix -f .zshrc
-        $ source .zshrc
         ```
         - **Note:** `^M` represents the carriage return (CR) character commonly used in Windows-style text files to indicate the end of a line.
-    6. Change the default login shell (use `echo $SHELL` to display the current login shell):
+    6. Then source the `.zshrc` file:
+        ```bash
+        $ source .zshrc
+        ```
+    7. Change the default login shell (use `echo $SHELL` to display the current login shell):
         ```bash
         $ chsh -s /bin/zsh
         ```
-    6. Log out and log back into the server, then check the current login shell:
+    8. Log out and log back into the server, then check the current login shell:
         ```bash
         $ echo $SHELL
         ```
@@ -268,25 +274,25 @@ After rebooting `log in` with your credentials.
 7. Configure `VirtualBox shared folder`:
     1. On the VM top menu, click on `Machine` > `Settings...`.
         1. Go to `Shared Folders` and click on the `blue folder with the plus sign` at the right.
-        2. Chose the `Folder Path`, type the `Folder Name`, and check `Make Permanten` only.
+        2. Chose the `Folder Path`, type the `Folder Name`, check `Make Permanten` only, then click `OK` on the dialog box and `OK` on the settings window.
     2. Back on the guest's terminal, mount the directory on a folder with a name different than the `Folder Name` set previously on the VirtualBox interface:
         1. Create a directory at your user directory `~/` to be the mounting point:
             ```bash
-            $ sudo mkdir /home/<username>/shared
+            $ sudo mkdir /home/<username>/<shared_folder>
             ```
         2. Mount the host's shared folder with the command below to change its uid and gid to 1000:
             ```bash
-            $ sudo mount -t vboxsf -o rw,uid=1000,gid=1000 <shared_host> /home/<username>/shared
+            $ sudo mount -t vboxsf -o rw,uid=1000,gid=1000 <VBox_folder_name> /home/<username>/<shared_folder>
             ```
-        - Replace `<shared_host>` by the `Folder Name` set on the VirtualBox interface and `<username>` by your username.
+        - Replace `<VBox_folder_name>` by the `Folder Name` set on the VirtualBox interface, `<username>` by your username, and `<shared_folder>` by the name you wish.
     3. To make this permanent, let's set to mount the shared directory on startup.
         1. Edit the `fstab` file in the `/etc` directory:
             ```bash
             $ sudo nano /etc/fstab
             ```
-            - At the end of the file, add the line below using the tab to separate the fields and replace <shared_host> with `Folder Name` defined earlier and save:
+            - At the end of the file, add the line below using the tab to separate the fields and replacing `<shared_host>`, `<username>`, and `<shared_folder` by their respective values:
             ```bash
-            <shared_host>	/home/<username>/shared	vboxsf	defaults	0	0
+            <VBox_folder_name>	/home/<username>/<shared_folder>	vboxsf	defaults	0	0
             ```
         2. Edit `modules`:
             ```bash
