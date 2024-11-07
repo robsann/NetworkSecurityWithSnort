@@ -96,7 +96,7 @@ Download the `Ubuntu Server 22.04.x LTS` disk image (ISO) from [here](https://cd
 
 Open `VirtualBox Manager` and click on `New`.
 1. On `Virtual machine Name and operating system`, set:
-    - `Name:` Ubuntu Server (SOC Tools)
+    - `Name:` Ubuntu Server (Snort)
     - `Machine Folder:` (Select the location to install the VM)
     - `ISO Image:` (Leave \<not selected\>)
     - `Type:` Linux
@@ -108,7 +108,7 @@ Open `VirtualBox Manager` and click on `New`.
     - Click `Next`.
 3. On `Virtual Hard disk`, set:
     - Select `Create a Virtual Hard Disk Now`
-    - `Disk Size:` 80 GB (or more)
+    - `Disk Size:` 30 GB (or more)
     - Click `Next`.
 4. On `Summary`:
     - Review and click `Finish`.
