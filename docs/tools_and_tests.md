@@ -104,7 +104,7 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     ```bash
     $ sudo systemctl restart snort
     ```
-4. Reference: http://manual-snort-org.s3-website-us-east-1.amazonaws.com/node15.html
+4. Configuring Snort reference: http://manual-snort-org.s3-website-us-east-1.amazonaws.com/node15.html
 
 </details>
 
