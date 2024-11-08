@@ -166,11 +166,11 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
 
 <h1 align="center" id="test-scenarios">Test Scenarios</h1>
 
-## Test 1: Nmap Scan Detection with Snort
+## Scenario 1: Nmap Scan Detection with Snort
 
 <details>
 <summary>
-<h3>Identifying NMAP Ping Scan</h3>
+<h3>Test 1.1: Identifying NMAP Ping Scan</h3>
 </summary>
 
 Add the following rule to `/etc/snort/rules/local.rules` to capture the ICMP protocol sent to Debia machine on the 192.168.1.0/24 network:
@@ -194,7 +194,7 @@ $ nmap -sP --disable-arp-ping 192.168.57.4
 
 <details>
 <summary>
-<h3>Identifying NMAP TCP Scan</h3>
+<h3>Test 1.2: Identifying NMAP TCP Scan</h3>
 </summary>
 
 Add to `/etc/snort/rules/local.rules` the following rule:
@@ -224,7 +224,7 @@ The applied rule on the NIDS now can be validated.
 
 <details>
 <summary>
-<h3>Identifying NMAP XMAS Scan</h3>
+<h3>Test 1.3: Identifying NMAP XMAS Scan</h3>
 </summary>
 
 Add to `/etc/snort/rules/local.rules` the following rule:
@@ -254,7 +254,7 @@ The generated packets can be identified in Snort, Wireshark, and tcpdump.
 
 <details>
 <summary>
-<h3>Identifying NMAP FIN Scan</h3>
+<h3>Test 1.4: Identifying NMAP FIN Scan</h3>
 </summary>
 
 Add to `/etc/snort/rules/local.rules` the following rule:
@@ -284,7 +284,7 @@ The generated packets can be identified in Snort, Wireshark, and tcpdump.
 
 <details>
 <summary>
-<h3>Identifying NULL Scan</h3>
+<h3>Test 1.5: Identifying NULL Scan</h3>
 </summary>
 
 Add to `/etc/snort/rules/local.rules` the following rule:
@@ -314,7 +314,7 @@ The generated packets can be identified in Snort, Wireshark, and tcpdump.
 
 <details>
 <summary>
-<h3>Identifying NMAP UDP Scan</h3>
+<h3>Test 1.6: Identifying NMAP UDP Scan</h3>
 </summary>
 
 Add to `/etc/snort/rules/local.rules` the following rule:
@@ -338,11 +338,11 @@ The generated packets can be identified in Snort, Wireshark, and tcpdump.
 </details>
 
 
-## Test 2: SQL Injection Detection with Snort (TODO)
+## Scenario 2: SQL Injection Detection with Snort (TODO)
 
-## Test 3: Backdoor Attacks Detection with Snort (TODO)
+## Scenario 3: Backdoor Attacks Detection with Snort (TODO)
 
-## Test 4: Rogue DHCP & Routing Attacks Detection with Snort (TODO)
+## Scenario 4: Rogue DHCP & Routing Attacks Detection with Snort (TODO)
 
-## Test 5: ICMP Redirect Attack Detection with Snort (TODO)
+## Scenario 5: ICMP Redirect Attack Detection with Snort (TODO)
 
