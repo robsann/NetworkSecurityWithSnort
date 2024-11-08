@@ -39,6 +39,8 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     ```bash
     $ snort -V
     ```
+3. The Snort 2 manual can be found [here](http://manual-snort-org.s3-website-us-east-1.amazonaws.com/snort_manual.html)
+
 </details>
 
 
@@ -102,6 +104,7 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     ```bash
     $ sudo systemctl restart snort
     ```
+4. Reference: http://manual-snort-org.s3-website-us-east-1.amazonaws.com/node15.html
 
 </details>
 
@@ -138,31 +141,31 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     ```
     - **ICMP Packets:** The first following rule match all packets using the ICMP protocol, while the subsequent rules match specific packets using the ICMP protocol.
     ```yml
-    alert icmp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"ICMP Packet detected"; sid:2000000; rev:1;)
-    alert icmp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"ICMP Echo Request";      itype:8;  sid:2000001; rev:1;)
-    alert icmp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"ICMP Echo Reply";        itype:0;  sid:2000002; rev:1;)
-    alert icmp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"ICMP Timestamp Request"; itype:13; sid:2000003; rev:1;)
-    alert icmp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"ICMP Timestamp Reply)";  itype:14; sid:2000004; rev:1;)
-    alert icmp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"ICMP Destination Unreachable"; itype:3; sid:2000005; rev:1;)
+    alert icmp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"ICMP Packet detected"; sid:2000000; rev:1;)
+    alert icmp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"ICMP Echo Request";      itype:8;  sid:2000001; rev:1;)
+    alert icmp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"ICMP Echo Reply";        itype:0;  sid:2000002; rev:1;)
+    alert icmp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"ICMP Timestamp Request"; itype:13; sid:2000003; rev:1;)
+    alert icmp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"ICMP Timestamp Reply)";  itype:14; sid:2000004; rev:1;)
+    alert icmp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"ICMP Destination Unreachable"; itype:3; sid:2000005; rev:1;)
     ```
     - **TCP Packets:** The first following rule match all packets using the TCP protocol, while the subsequent rules match specific packets using the TCP protocol.
     ```yml
-    alert tcp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"TCP Packet detected"; sid:3000000; rev:1;)
-    alert tcp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"TCP SYN";       flags:S;   sid:3000001; rev:1;)
-    alert tcp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"TCP SYN/ACK";   flags:SA;  sid:3000002; rev:1;)
-    alert tcp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"TCP ACK";       flags:A;   sid:3000003; rev:1;)
-    alert tcp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"TCP RST";       flags:R;   sid:3000004; rev:1;)
-    alert tcp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"TCP RST/ACK";   flags:RA;  sid:3000005; rev:1;)
-    alert tcp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"TCP NULL";      flags:0;   sid:3000006; rev:1;)
-    alert tcp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"TCP FIN";       flags:F;   sid:3000007; rev:1;)
-    alert tcp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"TCP XMAS Tree"; flags:FPU; sid:3000008; rev:1;)
+    alert tcp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"TCP Packet detected"; sid:3000000; rev:1;)
+    alert tcp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"TCP SYN";       flags:S;   sid:3000001; rev:1;)
+    alert tcp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"TCP SYN/ACK";   flags:SA;  sid:3000002; rev:1;)
+    alert tcp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"TCP ACK";       flags:A;   sid:3000003; rev:1;)
+    alert tcp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"TCP RST";       flags:R;   sid:3000004; rev:1;)
+    alert tcp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"TCP RST/ACK";   flags:RA;  sid:3000005; rev:1;)
+    alert tcp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"TCP NULL";      flags:0;   sid:3000006; rev:1;)
+    alert tcp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"TCP FIN";       flags:F;   sid:3000007; rev:1;)
+    alert tcp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"TCP XMAS Tree"; flags:FPU; sid:3000008; rev:1;)
     ```
     - **UDP Packets:** The first following rule match all packets using the UDP protocol, while the subsequent rules match specific packets using the UDP protocol.
     ```yml
-    alert udp $SRC_IP $SRC_PORT <> $DST_IP $DST_PORT (msg:"UDP Packet detected"; sid:4000000; rev:1;)
-    alert udp $SRC_IP $SRC_PORT <> $DST_IP 53  (msg:"UDP DNS";  sid:4000001; rev:1;)
-    alert udp $SRC_IP $SRC_PORT <> $DST_IP 67  (msg:"UDP DHCP"; sid:4000002; rev:1;)
-    alert udp $SRC_IP $SRC_PORT <> $DST_IP 161 (msg:"UDP SNMP"; sid:4000003; rev:1;)
+    alert udp $SRC_IP $SRC_PORT -> $DST_IP $DST_PORT (msg:"UDP Packet detected"; sid:4000000; rev:1;)
+    alert udp $SRC_IP $SRC_PORT -> $DST_IP 53  (msg:"UDP DNS";  sid:4000001; rev:1;)
+    alert udp $SRC_IP $SRC_PORT -> $DST_IP 67  (msg:"UDP DHCP"; sid:4000002; rev:1;)
+    alert udp $SRC_IP $SRC_PORT -> $DST_IP 161 (msg:"UDP SNMP"; sid:4000003; rev:1;)
     ```
 3. Let's run Snort in IDS mode using the full alert mode (`-A full`) to include the full packet payload in the alert output, the default configuration file, and the `enp0s8` interface:
     ```bash
@@ -172,9 +175,10 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     ```bash
     $ tail -f /var/log/snort/alert
     ```
-5. Use `ping` and `tcpdump` to generate ICMP traffic date and to monitor packets, respectively.
+5. Reference: http://manual-snort-org.s3-website-us-east-1.amazonaws.com/node27.html
 
 </details>
+
 
 ----------------------------------------------------------------------------------------------------
 
