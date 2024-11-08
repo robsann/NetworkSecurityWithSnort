@@ -8,11 +8,11 @@ This guide offers detailed, step-by-step instructions for setting up a virtual e
 1. [Tools Installation](#tools-installation)
     1. [Snort 2 (NIDS) Setup on Ubuntu Server](#snort-2-nids-setup-on-ubuntu-server)
 2. [Test Scenarios](#test-scenarios)
-	1. [Nmap Scan Detection with Snort](#nmap-scan-detection-with-snort)
-	2. [SQL Injection Detection with Snort](#)
-	3. [Backdoor Attacks Detection with Snort](#)
-	4. [Rogue DHCP & Routing Attacks Detection with Snort](#)
-	5. [ICMP Redirect Attack Detection with Snort](#)
+	1. [Scenario 1: Nmap Scan Detection with Snort](#scenario-1-nmap-scan-detection-with-snort)
+	2. [Scenario 2: SQL Injection Detection with Snort](#)
+	3. [Scenario 3: Backdoor Attacks Detection with Snort](#)
+	4. [Scenario 4: Rogue DHCP & Routing Attacks Detection with Snort](#)
+	5. [Scenario 5: ICMP Redirect Attack Detection with Snort](#)
 
 
 ----------------------------------------------------------------------------------------------------
