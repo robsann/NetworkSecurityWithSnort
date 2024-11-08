@@ -39,7 +39,7 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     ```bash
     $ snort -V
     ```
-3. The Snort 2 manual can be found [here](http://manual-snort-org.s3-website-us-east-1.amazonaws.com/snort_manual.html)
+3. Snort 2 Users Manual: http://manual-snort-org.s3-website-us-east-1.amazonaws.com/snort_manual.html
 
 </details>
 
