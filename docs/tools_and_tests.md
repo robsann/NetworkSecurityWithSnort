@@ -175,7 +175,7 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     ```bash
     $ tail -f /var/log/snort/alert
     ```
-5. Reference: http://manual-snort-org.s3-website-us-east-1.amazonaws.com/node27.html
+5. Writing Snort Rules reference: http://manual-snort-org.s3-website-us-east-1.amazonaws.com/node27.html
 
 </details>
 
