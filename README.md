@@ -20,7 +20,10 @@ In this homelab setup, Snort 2 is running in Network Intrusion Detection System 
 
 ## Procedure
 
-The procedure to build this lab can be found [here](https://github.com/robsann/NetworkSecurityWithSnort/blob/main/procedure.md). It was adapted from [B3l3r0f0nt377](https://www.youtube.com/watch?v=IIBS3aWj99E&list=PLMYaFGbdrr4sFeNeKaiBKFzfIqA1zuAg9&ab_channel=B3l3r0f0nt377).
+The procedures to build this lab was adapted from [B3l3r0f0nt377](https://www.youtube.com/watch?v=IIBS3aWj99E&list=PLMYaFGbdrr4sFeNeKaiBKFzfIqA1zuAg9&ab_channel=B3l3r0f0nt377) and are provided below:
+- [Virtual machines installation.](https://github.com/robsann/NetworkSecurityWithSnort/blob/main/docs/vms_installation.md)
+- [Tools installation and tests procedures.](https://github.com/robsann/NetworkSecurityWithSnort/blob/main/docs/tools_and_tests.md)
+
 
 ## Network Diagram
 
