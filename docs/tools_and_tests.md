@@ -94,10 +94,14 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     ```
     - The `/etc/snort/rules/local.rules` file is where user can write their own rules for Snort.
 2. Test the configuration file by running the following command:
-    ```
-    $ sudo snort -T -i enp0s9 -c /etc/snort/snort.conf
+    ```bash
+    $ sudo snort -T -c /etc/snort/snort.conf -i enp0s8
     ```
     - You shoud see a successfully validation message displayed on the output.
+3. Restart Snort:
+    ```bash
+    $ sudo systemctl restart snort
+    ```
 
 </details>
 
@@ -142,9 +146,9 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     alert tcp any any <> 192.168.57.4 any (msg:"TCP ACK";       flags:A;   sid:3000003; rev:1;)
     alert tcp any any <> 192.168.57.4 any (msg:"TCP RST";       flags:R;   sid:3000004; rev:1;)
     alert tcp any any <> 192.168.57.4 any (msg:"TCP RST/ACK";   flags:RA;  sid:3000005; rev:1;)
-    alert tcp any any <> 192.168.57.4 any (msg:"TCP NULL";      flags:0;   sif:3000006; rev:1;)
-    alert tcp any any <> 192.168.57.4 any (msg:"TCP FIN";       flags:F;   sif:3000007; rev:1;)
-    alert tcp any any <> 192.168.57.4 any (msg:"TCP XMAS Tree"; flags:FPU; sif:3000008; rev:1;)
+    alert tcp any any <> 192.168.57.4 any (msg:"TCP NULL";      flags:0;   sid:3000006; rev:1;)
+    alert tcp any any <> 192.168.57.4 any (msg:"TCP FIN";       flags:F;   sid:3000007; rev:1;)
+    alert tcp any any <> 192.168.57.4 any (msg:"TCP XMAS Tree"; flags:FPU; sid:3000008; rev:1;)
     ```
     - **UDP Packets:** The first following rule match all packets using the UDP protocol, while the subsequent rules match specific packets using the UDP protocol.
     ```yml
@@ -153,9 +157,13 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     alert udp any any <> 192.168.57.4 67  (msg:"UDP DHCP"; sid:4000002; rev:1;)
     alert udp any any <> 192.168.57.4 161 (msg:"UDP SNMP"; sid:4000003; rev:1;)
     ```
-3. Now it is possible to scan the network using the IDS mode:
+3. Let's run Snort in IDS mode using the full alert mode (`-A full`) to include the full packet payload in the alert output, the default configuration file, and the `enp0s8` interface:
     ```bash
     $ sudo snort -A console -c /etc/snort/snort.conf -i enp0s8
+    ```
+4. Track the generated alerts running the command below:
+    ```bash
+    $ tail -f /var/log/snort/alert
     ```
 5. Use `ping` and `tcpdump` to generate ICMP traffic date and to monitor packets, respectively.
 
