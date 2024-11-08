@@ -6,7 +6,7 @@ This guide offers detailed, step-by-step instructions for setting up a virtual e
 ## Outline
 
 1. [Tools Installation:](#tools-installation)
-    1. [Snort 2 (NIDS) Setup on Ubuntu Server](#snort-2-nids-setup-on-ubuntu-server)
+    1. [Setting up Snort 2 on Ubuntu Server](#setting-up-snort-2-on-ubuntu-server)
 2. [Test Scenarios:](#test-scenarios)
 	1. [Scenario 1: Nmap Scan Detection with Snort](#scenario-1-nmap-scan-detection-with-snort)
 	2. [Scenario 2: SQL Injection Detection with Snort](#)
@@ -20,7 +20,7 @@ This guide offers detailed, step-by-step instructions for setting up a virtual e
 
 <h1 align="center" id="tools-installation">Tools Installation</h1>
 
-## Snort 2 (NIDS) Setup on Ubuntu Server
+## Setting up Snort 2 on Ubuntu Server
 
 Snort has currently two versions available which are Snort 2 and Snort 3. Snort 3 is an updated version with a new design that offers improved efficacy, performance, scalability, and extensibility. On the other hand, Snort 2 is the most widely implemented version and provides extensive support, documentation, and rule-sets. For the purposes of this lab, we will be using Snort 2. Follow the steps below to easily install and configure it in NIDS mode.
 
