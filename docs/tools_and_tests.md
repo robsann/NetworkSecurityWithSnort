@@ -166,7 +166,7 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
 
 <h1 align="center" id="test-scenarios">Test Scenarios</h1>
 
-## Nmap Scan Detection with Snort
+## Test 1: Nmap Scan Detection with Snort
 
 <details>
 <summary>
@@ -338,11 +338,11 @@ The generated packets can be identified in Snort, Wireshark, and tcpdump.
 </details>
 
 
-## SQL Injection Detection with Snort (TODO)
+## Test 2: SQL Injection Detection with Snort (TODO)
 
-## Backdoor Attacks Detection with Snort (TODO)
+## Test 3: Backdoor Attacks Detection with Snort (TODO)
 
-## Rogue DHCP & Routing Attacks Detection with Snort (TODO)
+## Test 4: Rogue DHCP & Routing Attacks Detection with Snort (TODO)
 
-## ICMP Redirect Attack Detection with Snort (TODO)
+## Test 5: ICMP Redirect Attack Detection with Snort (TODO)
 
