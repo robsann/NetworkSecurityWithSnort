@@ -107,14 +107,14 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
 <h3>Step 3: Local Rules Configuration</h3>
 </summary>
 
-1. Snort rules composed by two parts which are Rule Header and Rule Options.
+1. The Snort rules are composed by two parts, the Rule Header and the Rule Options:
     - Rule Header ([Rule Options]):
     ```yml
     action protocol source_ip source_port -> destination_ip destination_port ([Rule Options])
     ```
     - On Rule Options the `sid` values are divided in three categories ([reference](http://manual-snort-org.s3-website-us-east-1.amazonaws.com/node31.html)):
         - `< 100`: Reserved for future use.
-        - `100-999,999`: Rules included with the Snort distribution.
+        - `100 - 999,999`: Rules included with the Snort distribution.
         - `>= 1,000,000`: Used for local rules.
 2. Write the following rules to generate an alert message for packets used in Nmap scanning:
     - Open local rules:
