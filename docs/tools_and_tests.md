@@ -170,7 +170,7 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
 
 <details>
 <summary>
-<h3>How to identify a NMAP Ping Scan</h3>
+<h3>Identifying NMAP Ping Scan</h3>
 </summary>
 
 Add the following rule to `/etc/snort/rules/local.rules` to capture the ICMP protocol sent to Debia machine on the 192.168.1.0/24 network:
@@ -194,7 +194,7 @@ $ nmap -sP --disable-arp-ping 192.168.57.4
 
 <details>
 <summary>
-<h3>How to identify a NMAP TCP Scan</h3>
+<h3>Identifying NMAP TCP Scan</h3>
 </summary>
 
 Add to `/etc/snort/rules/local.rules` the following rule:
@@ -224,7 +224,7 @@ The applied rule on the NIDS now can be validated.
 
 <details>
 <summary>
-<h3>How to identify NMAP XMAS Scan</h3>
+<h3>Identifying NMAP XMAS Scan</h3>
 </summary>
 
 Add to `/etc/snort/rules/local.rules` the following rule:
@@ -254,7 +254,7 @@ The generated packets can be identified in Snort, Wireshark, and tcpdump.
 
 <details>
 <summary>
-<h3>How to identify NMAP FIN Scan</h3>
+<h3>Identifying NMAP FIN Scan</h3>
 </summary>
 
 Add to `/etc/snort/rules/local.rules` the following rule:
@@ -284,7 +284,7 @@ The generated packets can be identified in Snort, Wireshark, and tcpdump.
 
 <details>
 <summary>
-<h3>How to identify NULL Scan</h3>
+<h3>Identifying NULL Scan</h3>
 </summary>
 
 Add to `/etc/snort/rules/local.rules` the following rule:
@@ -314,7 +314,7 @@ The generated packets can be identified in Snort, Wireshark, and tcpdump.
 
 <details>
 <summary>
-<h3>How to identify NMAP UDP Scan</h3>
+<h3>Identifying NMAP UDP Scan</h3>
 </summary>
 
 Add to `/etc/snort/rules/local.rules` the following rule:
