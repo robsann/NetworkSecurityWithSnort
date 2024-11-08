@@ -125,7 +125,7 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     ```yml
     alert ip any any -> any any (msg:"IP Packet detected"; sid:1000000; rev:1;)
     ```
-    - **ICMP Packets:** The following rules match five types of packets using the ICMP protocol.
+    - **ICMP Packets:** The first following rule match all packets using the ICMP protocol, while the subsequent rules match specific packets using the ICMP protocol.
     ```yml
     alert icmp any any <> 192.168.57.4 any (msg:"ICMP Packet detected"; sid:2000000; rev:1;)
     alert icmp any any <> 192.168.57.4 any (msg:"ICMP Echo Request";      itype:8;  sid:2000001; rev:1;)
@@ -134,7 +134,7 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     alert icmp any any <> 192.168.57.4 any (msg:"ICMP Timestamp Reply)";  itype:14; sid:2000004; rev:1;)
     alert icmp any any <> 192.168.57.4 any (msg:"ICMP Destination Unreachable"; itype:3; sid:2000005; rev:1;)
     ```
-    - **TCP Packets:** The following rules match eight types of packets using the TCP protocol.
+    - **TCP Packets:** The first following rule match all packets using the TCP protocol, while the subsequent rules match specific packets using the TCP protocol.
     ```yml
     alert tcp any any <> 192.168.57.4 any (msg:"TCP Packet detected"; sid:3000000; rev:1;)
     alert tcp any any <> 192.168.57.4 any (msg:"TCP SYN";       flags:S;   sid:3000001; rev:1;)
@@ -146,7 +146,7 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     alert tcp any any <> 192.168.57.4 any (msg:"TCP FIN";       flags:F;   sif:3000007; rev:1;)
     alert tcp any any <> 192.168.57.4 any (msg:"TCP XMAS Tree"; flags:FPU; sif:3000008; rev:1;)
     ```
-    - **UDP Packets:** Rule to match all packets using the UDP protocol.
+    - **UDP Packets:** The first following rule match all packets using the UDP protocol, while the subsequent rules match specific packets using the UDP protocol.
     ```yml
     alert udp any any <> 192.168.57.4 any (msg:"UDP Packet detected"; sid:4000000; rev:1;)
     alert udp any any <> 192.168.57.4 53  (msg:"UDP DNS";  sid:4000001; rev:1;)
@@ -155,7 +155,7 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
     ```
 3. Now it is possible to scan the network using the IDS mode:
     ```bash
-    $ sudo snort -A console -c /etc/snort/snort.conf -i enp0s9
+    $ sudo snort -A console -c /etc/snort/snort.conf -i enp0s8
     ```
 5. Use `ping` and `tcpdump` to generate ICMP traffic date and to monitor packets, respectively.
 
