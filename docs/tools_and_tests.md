@@ -180,6 +180,42 @@ Snort has currently two versions available which are Snort 2 and Snort 3. Snort 
 </details>
 
 
+<details>
+<summary>
+<h3>Step 4: Detection Using Preprocessors</h3>
+</summary>
+
+#### ARP Spoof Preprocessor
+
+The ARP spoof preprocessor decodes ARP packets and detects ARP attacks, unicast ARP requests, and inconsistent Ethernet to IP mapping.
+
+1. To add ARP spoof preprocessor, edit the `Step #5: Configure preprocessors` in the Snort configuration file:
+    - Open the configuration file:
+    ```bash
+    $ sudo nano /etc/snort/snort.conf
+    ```
+    - To only look for Ethernet address inconsistencies, set the following parameter:
+    ```yml
+    preprocessor arpspoof
+    ```
+    - To add monitor ARP mapping for hosts 192.168.57.1 and 192.168.57.2, set the following parameters:
+    ```yml
+    preprocessor arpspoof
+    preprocessor arpspoof_detect_host: 192.168.57.1 f0:0f:00:f0:0f:00
+    preprocessor arpspoof_detect_host: 192.168.57.2 f0:0f:00:f0:0f:01
+    ```
+    - To add unicast detection, set the following parameters:
+    ```yml
+    preprocessor arpspoof: -unicast
+    preprocessor arpspoof_detect_host: 192.168.57.1 f0:0f:00:f0:0f:00
+    preprocessor arpspoof_detect_host: 192.168.57.2 f0:0f:00:f0:0f:01
+    ```
+2. Restart Snort:
+    ```bash
+    $ sudo systemctl restart snort
+    ```
+3. ARP Spoof Preprocessor reference: http://manual-snort-org.s3-website-us-east-1.amazonaws.com/node17.html#SECTION003215000000000000000
+
 ----------------------------------------------------------------------------------------------------
 
 
