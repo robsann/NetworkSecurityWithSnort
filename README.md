@@ -52,7 +52,7 @@ The Host-only Network is a virtual network in VirtualBox that is exclusively acc
 
 - **Debian:** The Debian VM was also configured with two network adapters. The first adapter (enp0s3) is set to NAT mode and assigned the IP address 10.0.2.15, enabling internet access. The second adapter (enp0s8) is connected to vboxnet1 and has the IP address 192.168.57.4.
 
-<img src="images/intro/centos_vboxnet1_nat.png"/>
+<img src="images/intro/debian_vboxnet1_nat.png"/>
 
 </details>
 
