@@ -28,7 +28,7 @@ The procedures for building this lab were adapted from [B3l3r0f0nt377](https://w
 ## Network Diagram
 
 <div align="center">
-<img src="images/intro/network_diagram.png" width="60%"/>
+<img src="images/intro/network_diagram.png" width="80%"/>
 </div>
 
 ## VirtualBox Host-Only Network
