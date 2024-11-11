@@ -31,9 +31,9 @@ The procedures for building this lab were adapted from [B3l3r0f0nt377](https://w
 <img src="images/intro/network_diagram.png" width="80%"/>
 </div>
 
-## VirtualBox Host-Only Network
+## VirtualBox Host-only Network
 
-Host-only network is a virtual network accessed only by the Guest Virtual Machines (VM) on VirtualBox and the Host Machine running VirtualBox. It does not have access to the Internet. The Guest VMs can access the Internet by configuring an adaptor configured with NAT using IP 10.0.2.15 and Gateway/DHCP Server/Host on IP 10.0.2.2.
+The Host-only Network is a virtual network in VirtualBox that is exclusively accessible by the guest virtual machines (VMs) and the host machine running VirtualBox. This network does not provide direct access to the Internet. However, guest VMs can access the Internet by configuring an adapter with Network Address Translation (NAT). In this configuration, the guest VMs will use the IP address 10.0.2.15, while the gateway, DHCP server, and host wil be assigned the IP address 10.0.2.2.
 
 <details>
 <summary>
