@@ -42,7 +42,7 @@ The Host-only Network is a virtual network in VirtualBox that is exclusively acc
 
 
 - **Host-only network:** A host-only network, named vboxnet1, has been configured with IP range 192.168.57.0/24. It includes a DHCP Server with IP address 192.168.57.2, providing a dynamic IP range from 192.168.57.3 to 192.168.57.254.
-- **Kali Linux address:** The image below displays the terminal at the bottom, showing the Host Machine's connection to the host-only network (vboxnet1) using the IP address 192.168.57.1.
+- **Kali Linux address:** The terminal shown at the bottom of the image below displays the host machine's connection to the host-only network (vboxnet1) with the IP address 192.168.57.1.
 
 <img src="images/intro/host_vboxnet1.png"/><br>
 
