@@ -78,27 +78,27 @@ The Wireshark filter, which targets the Debian IP address, was applied across al
 
 ## 1.1 - Host Discovery
 
-Host discovery was performed from Kali Linux using the ping scan feature on Nmap targeting the CentOS 7 virtual machine.
+Host discovery was conducted using Kali Linux by employing Nmap's ping scan feature, targeting the Debian virtual machine.
 
 <details>
 <summary>
 <h3>1.1.1 - Nmap Ping Scan (with privileges)</h3>
 </summary>
 
-The host discovery process, performed with the `-sn` flag, includes an ICMP echo (ping) request, TCP SYN to port 443, TCP ACK to port 80, and an ICMP timestamp request as probe packs. Privileged users scanning targets on a local network can turn off ARP or IPv6 Neighbor Discovery (ND) discovery using the `--disable-arp-ping` flag.
+The host discovery process, executed with the `-sn` flag, involves sending an ICMP echo (ping) request, a TCP SYN to port 443, a TCP ACK to port 80, and an ICMP timestamp request as probe packets. Privileged users scanning targets on a local network have the option to disable ARP or IPv6 Neighbor Discovery (ND) by using the `--disable-arp-ping` flag.
 
 The image below displays the Attack machine executing Nmap (top left) with privileges and with the `-sn` and `--disable-arp-ping` flags and addressing the Target machine. It also shows the packets captured by Snort in the NIDS mode (bottom left) and by Wireshark (right).
 
 #### Nmap command
 
-```
+```bash
 sudo nmap -sn --disable-arp-ping 192.168.57.4
 ```
 
 #### Snort rules
 
 - **ICMP rules**
-```
+```yml
 alert icmp any any <> 192.168.57.4 any (msg:"ICMP Echo Request";      itype:8;  sid:1000001; rev:1;)
 alert icmp any any <> 192.168.57.4 any (msg:"ICMP Echo Reply";        itype:0;  sid:1000002; rev:1;)
 alert icmp any any <> 192.168.57.4 any (msg:"ICMP Timestamp Request"; itype:13; sid:1000003; rev:1;)
@@ -106,7 +106,7 @@ alert icmp any any <> 192.168.57.4 any (msg:"ICMP Timestamp Reply)";  itype:14; 
 ```
 
 - **TCP rules**
-```
+```yml
 alert tcp any any <> 192.168.57.4 any  (msg:"TCP SYN";     flags:S;   sid:11000001; rev:1;)
 alert tcp any any <> 192.168.57.4 any  (msg:"TCP SYN/ACK"; flags:SA;  sid:11000002; rev:1;)
 alert tcp any any <> 192.168.57.4 any  (msg:"TCP ACK";     flags:A;   sid:11000003; rev:1;)
