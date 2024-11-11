@@ -41,16 +41,16 @@ The Host-only Network is a virtual network in VirtualBox that is exclusively acc
 </summary>
 
 
-- **Host-only network:** Set up a Host-only network named vboxnet1 (IP range: 192.168.57.0/24) equipped with a DHCP Server (IP: 192.168.57.2) and a DHCP range spanning from 192.168.57.3 to 192.168.57.254.
+- **Host-only network:** A host-only network, named vboxnet1, has been configured with IP range 192.168.57.0/24. It includes a DHCP Server with IP address 192.168.57.2, providing a dynamic IP range from 192.168.57.3 to 192.168.57.254.
 - **Kali Linux address:** The image below displays the terminal at the bottom, showing the Host Machine's connection to the host-only network (vboxnet1) using the IP address 192.168.57.1.
 
 <img src="images/intro/host_vboxnet1.png"/><br>
 
-- **Ubuntu Server:** The Ubuntu Server VM was set up with dual network adapters: one connected to vboxnet1 (enp0s9 - IP: 192.168.57.3) with Promiscuous Mode set to Allow All, and the second linked to NAT (enp0s3 - IP: 10.0.2.15) to enable internet connectivity.
+- **Ubuntu Server:** The Ubuntu Server VM was configured with two network adapters. The first adapter (enp0s3) is set to NAT mode and has the IP address of 10.0.2.15, providing internet connectivity. The second adapter (enp0s8) is connected to vboxnet1 with an IP address of 192.168.57.3 and has Promiscuous Mode set to "Allow All".
 
 <img src="images/intro/ubuntu_vboxnet1_nat.png"/><br>
 
-- **CentOS 7:** The CentOS 7 VM was also configured with two network adapters: one connected to vboxnet1 (enp0s8) with the IP address 192.168.57.4, and the other connected to NAT (enp0s3) with the IP address 10.0.2.15, enabling internet access.
+- **Debian:** The Debian VM was also configured with two network adapters. The first adapter (enp0s3) is set to NAT mode and assigned the IP address 10.0.2.15, enabling internet access. The second adapter (enp0s8) is connected to vboxnet1 and has the IP address 192.168.57.4.
 
 <img src="images/intro/centos_vboxnet1_nat.png"/>
 
