@@ -61,16 +61,18 @@ The Host-only Network is a virtual network in VirtualBox that is exclusively acc
 
 ## 1 - Nmap Scan Detection with Snort
 
-In this test, the host discovery and port scans were conducted using Nmap on the Kali Linux host machine. The target was the CentOS 7 virtual machine. Simultaneously, the Ubuntu Server virtual machine detected the Nmap activities through Snort in NIDS mode, and the packets were captured using Wireshark on the Kali Linux system.
+In this test, host discovery and port scanning were performed using Nmap from the Kali Linux host machine, targeting the Debian virtual machine. Meanwhile, the Ubuntu Server virtual machine detected the Nmap activities through Snort operating in NIDS mode, and packet capture was conducted using Wireshark on the Kali Linux system.
 
-The same Wireshark filter, filtering the CentOS IP address, was used for all the tests. The Wireshark filter and the command used to start Snort in NIDS and monitoring mode are in the table below:
+The same Wireshark filter, filtering the Debian IP address, was used for all the tests. The Wireshark filter and the command used to start Snort in NIDS and monitoring mode are in the table below:
+
+The Wireshark filter, which targets the Debian IP address, was applied across all tests. The table below provides details on the Wireshark filter and the command used to initiate Snort in NIDS mode.
 
 <div align="center">
 
 |   					|Command
 |-----------------------|-----------------------------------------------------------
-|**Wireshark filter**   |`ip.addr == 192.168.57.3`
-|**Snort command**      |`sudo snort -A console -c /etc/snort/snort.conf -i enp0s9`
+|**Wireshark filter**   |`ip.addr == 192.168.57.4`
+|**Snort command**      |`sudo snort -A console -c /etc/snort/snort.conf -i enp0s8`
 
 </div>
 
