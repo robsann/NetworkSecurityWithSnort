@@ -48,11 +48,11 @@ The Host-only Network is a virtual network in VirtualBox that is exclusively acc
 
 - **Ubuntu Server:** The Ubuntu Server VM was configured with two network adapters. The first adapter (enp0s3) is set to NAT mode and has the IP address of 10.0.2.15, providing internet connectivity. The second adapter (enp0s8) is connected to vboxnet1 with an IP address of 192.168.57.3 and has Promiscuous Mode set to "Allow All".
 
-<img src="images/intro/ubuntu_vboxnet1_nat.png"/><br>
+<img src="images/intro/ubuntu_vboxnet1.png"/><br>
 
 - **Debian:** The Debian VM was also configured with two network adapters. The first adapter (enp0s3) is set to NAT mode and assigned the IP address 10.0.2.15, enabling internet access. The second adapter (enp0s8) is connected to vboxnet1 and has the IP address 192.168.57.4.
 
-<img src="images/intro/debian_vboxnet1_nat.png"/>
+<img src="images/intro/debian_vboxnet1.png"/>
 
 </details>
 
